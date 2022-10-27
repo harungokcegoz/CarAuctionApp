@@ -1,13 +1,14 @@
 <script>
     import Button from "../Button.svelte";
     export let id;
-    import {getLotteryById} from "/Users/harungokcegoz/Library/CloudStorage/OneDrive-Saxion/Saxion/Year 2/2.1 WebTech/template-main/client/src/utils/network-utils.js"
+    import {getLotteryById} from "../../utils/network-utils.js"
     let arrayLotteries = getLotteryById(id);
+    console.log(arrayLotteries)
 </script>
     {#await arrayLotteries}
             <p>Waiting</p>
-            {:then lotteries} 
-                {#each lotteries as lottery}
+            {:then lottery} 
+                <!-- {#each lotteries as lottery} -->
                 <div class="detail-page">
                     <div class="detail-page-title">
                         <div class="d-inline">
@@ -67,7 +68,7 @@
                     </div>
                 
                 </div>
-                {/each}  
+                <!-- {/each}   -->
             {/await}
       
 <style>

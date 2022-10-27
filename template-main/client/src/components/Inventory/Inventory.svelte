@@ -1,10 +1,11 @@
 <script>
    import Lottery from "./LotteryCards.svelte"
-   import {getAllLotteries} from "/Users/harungokcegoz/Library/CloudStorage/OneDrive-Saxion/Saxion/Year 2/2.1 WebTech/template-main/client/src/utils/network-utils.js"
+   import {getAllLotteries} from "../../utils/network-utils"
    import LotteryDetails from "./LotteryDetails.svelte"
    import Button from "../Button.svelte"
   
     let arrayLotteries = getAllLotteries();
+    console.log(arrayLotteries);
     import router from "page";
     let page;
     let params;

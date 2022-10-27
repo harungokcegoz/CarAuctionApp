@@ -52,14 +52,14 @@
             "lotNum": "007",
             "curBid": "1.329.950",
             "location":"Lochem",
-            "imgSrc":"https://prod.pictures.autoscout24.net/listing-images/6a53c612-d89e-459b-9810-b8f7a6ff3ab3_bf664dcd-ccf8-4937-9636-0b43cdc5a706.jpg/480x360.webp"
+            "imgSrc":"https://www.topgear.com/sites/default/files/2021/06/Aston%20Martin%20Vantage%20F1%20Edition%E2%94%AC%C2%AE%20Photo%20Max%20Earey%20320.jpg"
         },
         {
             "title": "2022 Bentley Continental GTC Speed V12",
             "lotNum": "008",
             "curBid": "436.950",
             "location":"Zutphen",
-            "imgSrc":"https://prod.pictures.autoscout24.net/listing-images/3e0408e3-908f-446b-a0a0-903a9cbdb214_7ac4b32d-5fe4-4975-a446-acad25a36173.jpg/480x360.webp"
+            "imgSrc":"https://i.ytimg.com/vi/kOmuiCkKQGw/maxresdefault.jpg"
         },
         {
             "title": "2020 Lamborghini Aventador 6.5 V12",

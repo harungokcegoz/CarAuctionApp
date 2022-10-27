@@ -5,12 +5,14 @@
     import Inventory from "./components/Inventory/Inventory.svelte";
     import Navigator from "./components/Navigator.svelte";
     import router from "page";
+  import SellACar from "./components/SellACar/SellACar.svelte";
     let page;
 
 
 
     router("/", () => (page = Homepage));
     router("/inventory", () => (page = Inventory));
+    router("/sellACar", () => (page = SellACar))
    
     router.start();
 
