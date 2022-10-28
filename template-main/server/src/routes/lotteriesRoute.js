@@ -1,6 +1,6 @@
 import express from "express";
-import lotteriesData from "../data/database.js";
-import { findALottery } from "../utils/dataUtils.js";
+import lotteriesData from "../data/lotteriesData.js";
+import { findALottery } from "../utils/lotteryDataUtils.js";
 
 const router = express.Router();
 
