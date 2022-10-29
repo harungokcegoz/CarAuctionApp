@@ -1,5 +1,1 @@
-export default [
-  {
-    username: "Harun",
-  },
-];
+export default [];

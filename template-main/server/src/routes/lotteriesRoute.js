@@ -19,9 +19,7 @@ router.get("/:id", function (req, res) {
     return res.json(resLot);
   }
 
-  return res
-    .status(404)
-    .json({ error: "The lottery with ID ${req.params.id} cant be found" });
+  return res.status(404).json({ error: "The lottery with ID cant be found" });
 });
 
 export default router;
