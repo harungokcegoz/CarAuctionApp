@@ -12,38 +12,35 @@
                 <div class="detail-page">
                     <div class="detail-page-title">
                         <div class="d-inline">
-                            <h2><b>{lottery.car_year} {lottery.car_make} {lottery.car_model}</b></h2>
-                            <h9> <b>Lot# </b>{lottery.lot_id} | <b>Location:</b> {lottery.location} | <b>Sale Date:</b> {lottery.sale_date}</h9>
-                        </div>
-                        <div class="d-inline" style="float: right;">
-                             <button type="button" name="favButton"><i class="fa fa-star-o fa-2x" aria-hidden="true"></i> Add a Favorite </button> 
+                            <h2><b>{lottery.year} {lottery.carMake} {lottery.carModel}</b></h2>
+                            <h9> <b>Lot# </b>{lottery.id} | <b>Location:</b> {lottery.location} | <b>Sale Date:</b> {lottery.saleDate}</h9>
                         </div>
                     </div>
                     <div class="container">
                         <div class="column">
-                            <img src={lottery.car_image} alt="" style="height: 400px; width: 500px; object-fit: cover;" class="rounded">
+                            <img src={lottery.image} alt="" style="height: 400px; width: 500px; object-fit: cover;" class="rounded">
                        </div>
                        <div class="container">
                         <div class="column">
                             <div class="column-row" >
                                 <h5 style="text-align: center;"><b>Car Info</b></h5>
-                                <li class="detail"><b>Make:</b> {lottery.car_make}</li>
-                                <li class="detail"><b>Model:</b> {lottery.car_model}</li>
-                                <li class="detail"><b>Year:</b> {lottery.car_year}</li>
-                                <li class="detail"><b>Milage:</b> {lottery.car_milage}</li>
-                                <li class="detail"><b>Fuel Type:</b> {lottery.car_fuel_type}</li>
-                                <li class="detail"><b>Body Type:</b> {lottery.car_body_type}</li>
-                                <li class="detail"><b>Gear Box:</b> {lottery.car_gearbox}</li>
-                                <li class="detail"><b>Car Condition:</b> {lottery.car_condition}</li>
+                                <li class="detail"><b>Make:</b> {lottery.carMake}</li>
+                                <li class="detail"><b>Model:</b> {lottery.carModel}</li>
+                                <li class="detail"><b>Year:</b> {lottery.year}</li>
+                                <li class="detail"><b>Mileage:</b> {lottery.mileage}</li>
+                                <li class="detail"><b>Fuel Type:</b> {lottery.fueltype}</li>
+                                <li class="detail"><b>Body Type:</b> {lottery.bodytype}</li>
+                                <li class="detail"><b>Gear Box:</b> {lottery.gearbox}</li>
+                                <li class="detail"><b>Car Condition:</b> {lottery.condition}</li>
                                 
                             </div>
                         </div>
                         <div class="column">
                             <div class="column-row" style="">
                                <h5 style="text-align: center;"><b>Bid Info</b></h5>
-                               <li class="detail"><b>Car Estimated Value:</b> {lottery.car_est_value}</li>
-                               <li class="detail"><b>Start Bid:</b> {lottery.starting_bid}</li>
-                               <li class="detail"><b>Max Bid:</b> {lottery.max_bid}</li>
+                               <li class="detail"><b>Car Estimated Value:</b> ${lottery.estValue}</li>
+                               <li class="detail"><b>Start Bid:</b> ${lottery.starting_bid}</li>
+                               <li class="detail"><b>Max Bid:</b> ${lottery.max_bid}</li>
                                <li class="detail"><b>Bid Status:</b> {lottery.bid_status}</li>
                             </div>
                             <div class="column-row" style="text-align: center;">
@@ -52,15 +49,15 @@
                                     <input type="text" name="bid" id="" placeholder="Your Bid" style="padding: 5px;">
                                 </div>
                                 <div class="offerButton" style="margin: 5px;">
-                                    <Button name="Make a Offer"/>
+                                    <Button name="Make a Offer" href= ""/>
                                 </div>
                               
                             </div>
                             <div class="column-row" style="">
                                 <h5 style="text-align: center;"><b>Sale Info</b></h5>
-                                <li class="detail"><b>Created on:</b> {lottery.start_date}</li>
+                                <li class="detail"><b>Created on:</b> {lottery.startDate}</li>
                                 <li class="detail"><b>Sale Status:</b> {lottery.sale_status}</li>
-                                <li class="detail"><b>Sale Date:</b> {lottery.sale_date}</li>
+                                <li class="detail"><b>Sale Date:</b> {lottery.saleDate}</li>
                             </div>
                         </div>
                        </div>

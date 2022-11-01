@@ -1,9 +1,9 @@
 <script>
-    export let name;
+    export let name, href;
 </script>
 
 
-<button class="button">{name}</button>
+<button class="button" on:click={() => location.href = href}>{name}</button>
 
 
 
@@ -26,6 +26,7 @@
     position:relative;
 	top:1px;
 }
+
 </style>
 
 

@@ -1,160 +1,162 @@
 <script>
+import Navigator from "../Navigator.svelte"
+import {tokenStore, userStore} from "../store.js"
+
+let carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, location, image;
+
+
+let userId = $userStore.user_id;
+
+
+
+
+
+async function submit(){
+ 
+    const data = { userId, carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, location, image }
+    try {
+        const res = await fetch("http://localhost:3000/lotteries/register", {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method : "POST",
+            body: JSON.stringify(data)
+    })
+    if (res.status >= 200 && res.status <= 299) {
+        alert("The car is created successfully!")
+       
+    } else{
+        console.log("Something went wrong")
+    }
+    } catch (error) {
+        console.log(error)
+    }  
+}
+
 
 </script>
-<body>
-<div class="container">
-    <header>Registration</header>
 
-    <form action="#">
-        <div class="form first">
-            <div class="details personal">
-                <span class="title">Personal Details</span>
-
-                <div class="fields">
-                    <div class="input-field">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Enter your name" required>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Date of Birth</label>
-                        <input type="date" placeholder="Enter birth date" required>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Email</label>
-                        <input type="text" placeholder="Enter your email" required>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Mobile Number</label>
-                        <input type="number" placeholder="Enter mobile number" required>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Gender</label>
-                        <select required>
-                            <option disabled selected>Select gender</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Others</option>
-                        </select>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Occupation</label>
-                        <input type="text" placeholder="Enter your ccupation" required>
-                    </div>
-                </div>
-            </div>
-
-            <div class="details-car">
-                <span class="title">Car Details</span>
-
-                <div class="fields">
-                    <div class="input-field">
-                        <label>Car Make</label>
-                        <input type="text" placeholder="Enter Car Make" required>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Car Model</label>
-                        <input type="number" placeholder="Enter Car Model" required>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Year</label>
-                        <input type="text" placeholder="Enter build year" required>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Mileage</label>
-                        <input type="text" placeholder="Enter mileage of the car" required>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Auction Start Date</label>
-                        <input type="date" placeholder="Enter your start date" required>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Sale Date</label>
-                        <input type="date" placeholder="Enter sale date" required>
-                    </div>
-                    <div class="input-field">
-                        <label>Gearbox</label>
-                        <select required>
-                            <option disabled selected>Select gearbox type</option>
-                            <option>Automatic</option>
-                            <option>Manual</option>
-                            <option>Semi-automatic</option>
-                        </select>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Fueltype</label>
-                        <select required>
-                            <option disabled selected>Select fuel type</option>
-                            <option>Gasoline</option>
-                            <option>Electric</option>
-                            <option>Diesel</option>
-                            <option>LPG</option>
-                        </select>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Bodytype</label>
-                        <select required>
-                            <option disabled selected>Select bodytype</option>
-                            <option>Sedan</option>
-                            <option>Cabrio</option>
-                            <option>Hatchback</option>
-                            <option>Coupe</option>
-                            <option>SUV</option>
-                            <option>Pick-up</option>
-                            <option>Minibus</option>
-                        </select>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Estimated Value</label>
-                        <input type="text" placeholder="Enter estimated value" required>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Condition</label>
-                        <select required>
-                            <option disabled selected>Select condition</option>
-                            <option>Brand New</option>
-                            <option>Used</option>
-                            <option>Oldtimer</option>
-                        </select>
-                    </div>
-
-                    <div class="input-field">
-                        <label>Location</label>
-                        <input type="text" placeholder="Enter location" required>
-                    </div>
-
-                    <div class="input-field" style="width: 100%;">
-                        <label>Image</label>
-                        <input type="file" placeholder="Put a image" required>
-                    </div>
-                </div>
-
-           
-                <div class="buttons">
-                    <button class="submitButton">
-                        <span class="btnText">Submit</span>
-                    </button>
-                </div>
-               
+{#if ([undefined, null, ''].includes($tokenStore))}
+    <div class="banner">
+        <h1>You need to login firstly!</h1>
+    </div>
+{:else}
+    <Navigator/>
+    <body>  
+        <div class="container">
+            <header>Create a Lottery</header>
+        
+            <form on:submit|preventDefault={submit}>
+                <div class="form first">
                 
-            </div> 
+                    <div class="details-car">
+                        <span class="title">Car Details</span>
+        
+                        <div class="fields">
+                            <div class="input-field">
+                                <label>Car Make</label>
+                                <input type="text" placeholder="Enter Car Make" required bind:value={carMake}>
+                            </div>
+        
+                            <div class="input-field">
+                                <label>Car Model</label>
+                                <input type="text" placeholder="Enter Car Model" required bind:value={carModel}>
+                            </div>
+        
+                            <div class="input-field">
+                                <label>Year</label>
+                                <input type="number" min="1800" max="2023" placeholder="Enter build year" required bind:value={year}>
+                            </div>
+        
+                            <div class="input-field">
+                                <label>Mileage</label>
+                                <input type="number"  min="0" placeholder="Enter mileage of the car" required bind:value={mileage}>
+                            </div>
+        
+                            <div class="input-field">
+                                <label>Auction Start Date</label>
+                                <input type="date" placeholder="Enter your start date" required bind:value={startDate}>
+                            </div>
+        
+                            <div class="input-field">
+                                <label>Sale Date</label>
+                                <input type="date" placeholder="Enter sale date" required bind:value={saleDate}>
+                            </div>
+                            <div class="input-field">
+                                <label>Gearbox</label>
+                                <select required bind:value={gearbox}>
+                                    <option disabled selected>Select gearbox type</option>
+                                    <option>Automatic</option>
+                                    <option>Manual</option>
+                                    <option>Semi-automatic</option>
+                                </select>
+                            </div>
+        
+                            <div class="input-field">
+                                <label>Fueltype</label>
+                                <select required bind:value={fueltype}>
+                                    <option disabled selected>Select fuel type</option>
+                                    <option>Gasoline</option>
+                                    <option>Electric</option>
+                                    <option>Diesel</option>
+                                    <option>LPG</option>
+                                </select>
+                            </div>
+        
+                            <div class="input-field">
+                                <label>Bodytype</label>
+                                <select required bind:value={bodytype}>
+                                    <option disabled selected>Select bodytype</option>
+                                    <option>Sedan</option>
+                                    <option>Cabrio</option>
+                                    <option>Hatchback</option>
+                                    <option>Coupe</option>
+                                    <option>SUV</option>
+                                    <option>Pick-up</option>
+                                    <option>Minibus</option>
+                                </select>
+                            </div>
+        
+                            <div class="input-field">
+                                <label>Estimated Value</label>
+                                <input type="number"  min="0" placeholder="Enter estimated value" required bind:value={estValue}>
+                            </div>
+        
+                            <div class="input-field">
+                                <label>Condition</label>
+                                <select required bind:value={condition}>
+                                    <option disabled selected>Select condition</option>
+                                    <option>Brand New</option>
+                                    <option>Used</option>
+                                    <option>Oldtimer</option>
+                                </select>
+                            </div>
+        
+                            <div class="input-field"> 
+                                <label>Location</label>
+                                <input type="text" placeholder="Enter location" required bind:value={location}>
+                            </div>
+        
+                            <div class="input-field" style="width: 100%;">
+                                <label>Image</label>
+                                <input type="text" placeholder="Put the link of the image" required bind:value={image}>
+                            </div>
+                        </div>
+        
+                
+                        <div class="buttons">
+                            <button class="submitButton" type="submit">Submit</button>
+                        </div>
+                    
+                        
+                    </div> 
+                </div>
+            </form>
         </div>
-    </form>
-</div>
-</body>
+    </body>
+{/if}
+
 <style>
 *{
     margin: 0;
@@ -198,7 +200,7 @@ body{
 .container form{
     position: relative;
     margin-top: 16px;
-    min-height: 800px;
+    min-height: 600px;
     background-color: #fff;
     overflow: hidden;
 }
@@ -281,7 +283,10 @@ form button:hover{
 .buttons{
     text-align: center;
 }
-
+.banner{
+    text-align: center;
+    margin: 5em auto;
+}
 
 
 @media (max-width: 750px) {
@@ -301,4 +306,5 @@ form button:hover{
         width: 100%;
     }
 }
+
 </style>

@@ -4,10 +4,10 @@
 </script>
 
 <nav>
-    <li class="nav-item"><a href="/">Home</a></li>
+    <li class="nav-item"><a href="/home">Home</a></li>
     <li class="nav-item"><a href="/inventory">Inventory</a></li>
     <li class="nav-item"><a href="/sellACar">Sell A Car</a></li>
-    <li class="nav-item"><a href="sellACar">Help</a></li>
+    <li class="nav-item"><a href="/profile">Profile</a></li>
 </nav>
 
 <style>

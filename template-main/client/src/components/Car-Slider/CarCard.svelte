@@ -25,7 +25,7 @@ import Button from "../Button.svelte";
             </div>
         </div>
         <div class="car-card-button">
-            <Button name = "View Details"/>
+            
         </div>
     </div>
 </div>

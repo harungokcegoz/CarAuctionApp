@@ -35,7 +35,7 @@
     .lottery-container{
         display: inline-block;
         height: 450px;
-        width: 250px;
+        width: 250px; 
     }
     .lottery-card{
         display: inline-block;
@@ -45,11 +45,11 @@
 
     }
     .lottery-card-info{
-        margin-bottom: 4em;
+        margin-bottom: 5em;
     }
     .lottery-card-description{
         padding: 1em;
-   
+        margin-bottom: 2em;
         text-align: left;
         height: 280px;
         width: 210px;

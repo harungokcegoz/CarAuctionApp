@@ -3,6 +3,7 @@ import usersData from "../data/usersData.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { findingLastId } from "../utils/usersDataUtils.js";
 
 const router = express.Router();
 dotenv.config();
@@ -11,13 +12,14 @@ router.get("/", authenticateToken, function (req, res) {
   res.json(usersData.filter((lot) => lot.username === req.user.username));
 });
 
-router.post("/", async function (req, res) {
+router.post("/register", userTaken, async function (req, res) {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    req.body.id = findingLastId(usersData) + 1;
     const user = {
+      user_id: req.body.id,
       username: req.body.username,
       password: hashedPassword,
-      lottery: req.body.lottery,
     };
     usersData.push(user);
     res.status(201).send("The user is created succcesfully!");
@@ -26,18 +28,19 @@ router.post("/", async function (req, res) {
   }
 });
 
-router.post("/login", async function (req, res) {
+router.post("/login", userInfo, async function (req, res) {
   const user = usersData.find((user) => user.username === req.body.username);
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+  const { password, ...bodyNoPassword } = user;
+  const accessToken = jwt.sign(bodyNoPassword, process.env.ACCESS_TOKEN_SECRET);
 
-  if (user == null) {
-    return res.status(400).send("User cannot found!");
-  }
   try {
     if (await bcrypt.compare(req.body.password, user.password)) {
-      res.json({ accessToken: accessToken });
+      res.json({
+        accessToken: accessToken,
+        user: bodyNoPassword,
+      });
     } else {
-      res.send("Oh, it is not allowed!");
+      res.status(401).send("Oh, password is not correct! Try again!");
     }
   } catch {
     res.status(500).send();
@@ -54,6 +57,25 @@ function authenticateToken(req, res, next) {
     req.user = user;
     next();
   });
+}
+
+function userInfo(req, res, next) {
+  const user = usersData.find((user) => user.username === req.body.username);
+  if (user == null) {
+    return res
+      .status(400)
+      .send("User cannot found! Please be sure you enter a valid username!");
+  } else {
+    next();
+  }
+}
+function userTaken(req, res, next) {
+  const user = usersData.find((user) => user.username === req.body.username);
+  if (!(user == null)) {
+    return res.status(400).send("This username is already taken!");
+  } else {
+    next();
+  }
 }
 
 export default router;
