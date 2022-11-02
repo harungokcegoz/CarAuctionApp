@@ -11,6 +11,8 @@
     import Registered from "./components/WelcomePage/Registered.svelte";
     import Profile from "./components/Profile/Profile.svelte";
   import CarRegistered from "./components/SellACar/CarRegistered.svelte";
+    import Navigator from "./components/Navigator.svelte"
+
 
 
     let page;
@@ -27,6 +29,7 @@
     router("/profile", () => (page = Profile));
     router("/carRegistered", () => (page = CarRegistered));
 
+
    
     router.start();
 
@@ -35,7 +38,7 @@
       
 
     <HomepageHeader/>
-    
+    <Navigator/>
    
 
 <main>

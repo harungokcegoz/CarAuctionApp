@@ -1,5 +1,5 @@
 import express from "express";
-import usersData from "../data/usersData.js";
+import { usersData } from "../data/usersData.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";

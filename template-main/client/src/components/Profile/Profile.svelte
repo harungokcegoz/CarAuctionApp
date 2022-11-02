@@ -1,15 +1,20 @@
 <script>
-import {getUserLotteries} from "../../utils/network-utils.js"
+import {getUserLotteries, deleteALottery} from "../../utils/network-utils.js"
 import {userStore} from "../store.js"
 import Navigator from "../Navigator.svelte";
+import EditPage from "./EditPage.svelte";
 let profileData = getUserLotteries($userStore.user_id);
+let page = "profile";
+let lot_id, carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, location, image;
+
 </script>
-<Navigator/>
 <div class="container">
     <div class="lottery">
         {#await profileData}
         <p>Waiting</p>
         {:then lotteries} 
+       
+        {#if page == "profile"}
         <div class="header">
             <h1 style="text-align: center; border-bottom: solid rgba(128, 128, 128, 0.585);
             padding: 8px 1em">Profile</h1>
@@ -64,16 +69,20 @@ let profileData = getUserLotteries($userStore.user_id);
                             <li class="detail"><b>Sale Date:</b> {lottery.saleDate}</li>
                         </div>
                     </div>
-                 
                    </div>
-                  
                 </div>
                 <div class="buttonGroup">
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button type = "button" on:click={() => {lot_id = lottery.id; carMake = lottery.carMake; carModel = lottery.carModel; year = lottery.year; mileage = lottery.mileage; startDate = lottery.startDate; saleDate = lottery.saleDate; gearbox = lottery.gearbox; fueltype = lottery.fueltype; bodytype = lottery.bodytype; estValue = lottery.estValue; condition = lottery.condition; location = lottery.location; image = lottery.image; page = "editpage";}}>Edit</button>
+                    <button on:click={() => {lot_id = lottery.id; deleteALottery(lot_id)}}>Delete</button>
                 </div>
-            </div>
+            </div> 
             {/each}
+            {:else}
+                <div class="header">
+                    <h1>Edit your Auction:</h1>
+                </div>
+                <EditPage id = {lot_id} carMake = {carMake} carModel = {carModel} year = {year} mileage = {mileage} startDate = {startDate} saleDate = {saleDate} gearbox = {gearbox} fueltype ={fueltype} bodytype = {bodytype} estValue = {estValue} condition ={condition} image = {image} location = {location}/> 
+            {/if} 
         {/await}
     </div>
 </div>

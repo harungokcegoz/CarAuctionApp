@@ -2,7 +2,7 @@
     import CarSlider from "../Car-Slider/CarSlider.svelte";
     import HomepageInfo from "./HomepageInfo.svelte";
     import { tokenStore } from "../store";
-  import Navigator from "../Navigator.svelte";
+
   console.log(tokenStore)
 </script>
     {#if ([undefined, null, ''].includes($tokenStore))}
@@ -11,7 +11,7 @@
     </div>
 
         {:else}
-        <Navigator/>
+        
         <main>
             <div class="main-cars-slider">
                 <CarSlider/>

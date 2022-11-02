@@ -17,10 +17,22 @@ export function getUserLotteries(userId) {
     }
   );
 }
-// export function getAProfile() {
-//   return fetch("http://localhost:3000/users/", {
-//     headers: { Authentication: "Bearer " + tokenStore },
-//   }).then((response) => {
-//     return response.json();
-//   });
-// }
+
+export async function deleteALottery(id) {
+  try {
+    const res = await fetch("http://localhost:3000/lotteries/delete/" + id, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    });
+    if (res.status >= 200 && res.status <= 299) {
+      alert("The car is deleted successfully!");
+    } else {
+      alert("Something went wrong");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

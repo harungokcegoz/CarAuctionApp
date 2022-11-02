@@ -3,7 +3,7 @@
    import {getAllLotteries} from "../../utils/network-utils"
    import LotteryDetails from "./LotteryDetails.svelte"
    import Button from "../Button.svelte"
-   import Navigator from "../Navigator.svelte"
+
 import { tokenStore } from "../store";
   
     let arrayLotteries = getAllLotteries();
@@ -28,7 +28,7 @@ import { tokenStore } from "../store";
 </div>
 
     {:else}
-    <Navigator/>
+
     <main>
        
         <div class="title">
