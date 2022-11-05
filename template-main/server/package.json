@@ -21,6 +21,7 @@
     "formdata": "^0.10.4",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.20",
-    "pg": "^8.8.0"
+    "pg": "^8.8.0",
+    "svelte-spa-router": "^3.3.0"
   }
 }

@@ -1,4 +1,7 @@
 <script>
+  import Button from "../Button.svelte";
+  import Inventory from "./Inventory.svelte"; 
+
     export let carMake, carModel, carYear, lotNum, location, imgSrc, bidStatus, maxBid;  
 </script>
 
@@ -27,6 +30,12 @@
                     </div>
                 </div>
             </div>
+            <div class="but">
+                <Button name= "View Details" href ={`/inventory/lotteries/${lotNum}`}/>
+            </div>
+            <!-- <div class="but">
+                <a href="/inventory/lotteries/{i+1}" on:click={() => {page = LotteryDetails; params = i + 1 ;}}><Button name= "View Details" href = "#"/></a>
+            </div> -->
         </div>
     </div>
 
@@ -36,6 +45,7 @@
         display: inline-block;
         height: 450px;
         width: 250px; 
+        margin: 4em 1em;
     }
     .lottery-card{
         display: inline-block;
@@ -45,13 +55,13 @@
 
     }
     .lottery-card-info{
-        margin-bottom: 5em;
+        margin-bottom: 3em;
     }
     .lottery-card-description{
         padding: 1em;
-        margin-bottom: 2em;
+        margin-bottom: 1em;
         text-align: left;
-        height: 280px;
+        height: 230px;
         width: 210px;
     }
     
@@ -60,6 +70,9 @@
         height: 180px;
         object-fit: cover;
         
+    }
+    .but{
+        margin-bottom: 2em;
     }
 
 

@@ -8,12 +8,12 @@
         <div class="info" style="text-align: center;">
             <p>You are registered successfully.</p>
             <br>
-            <p>Now try to login to access the website!</p>
+            <p>You are redirecting to homepage...</p>
             <br>
             <p>Good Luck!</p>
         </div>
         <div class="buttonGroup">
-            <Button name = "Login" href= "/login"/>
+            <Button name = "Login" href = "/login"/>
         </div>
     </div>
 

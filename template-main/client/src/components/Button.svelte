@@ -3,7 +3,7 @@
 </script>
 
 
-<button class="button" on:click={() => location.href = href}>{name}</button>
+<button class="button" on:click={() => {location.href = href}}>{name}</button>
 
 
 

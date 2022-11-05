@@ -12,6 +12,7 @@
     import Profile from "./components/Profile/Profile.svelte";
   import CarRegistered from "./components/SellACar/CarRegistered.svelte";
     import Navigator from "./components/Navigator.svelte"
+  import LotteryDetails from "./components/Inventory/LotteryDetails.svelte";
 
 
 
@@ -28,7 +29,7 @@
     router("/sellACar", () => (page = SellACar));
     router("/profile", () => (page = Profile));
     router("/carRegistered", () => (page = CarRegistered));
-
+    router("/inventory/lotteries/:id", () => (page = LotteryDetails));
 
    
     router.start();

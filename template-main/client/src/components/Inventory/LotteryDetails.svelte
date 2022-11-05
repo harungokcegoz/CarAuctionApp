@@ -1,9 +1,11 @@
 <script>
     import Button from "../Button.svelte";
-    export let id;
+    let id = location.pathname.replace('/inventory/lotteries/', '');
+    
     import {getLotteryById} from "../../utils/network-utils.js"
     let arrayLotteries = getLotteryById(id);
     console.log(arrayLotteries)
+    console.log(id)
 </script>
     {#await arrayLotteries}
             <p>Waiting</p>
@@ -49,7 +51,7 @@
                                     <input type="text" name="bid" id="" placeholder="Your Bid" style="padding: 5px;">
                                 </div>
                                 <div class="offerButton" style="margin: 5px;">
-                                    <Button name="Make a Offer" href= ""/>
+                                    <Button name="Make a Offer" href = "#"/>
                                 </div>
                               
                             </div>

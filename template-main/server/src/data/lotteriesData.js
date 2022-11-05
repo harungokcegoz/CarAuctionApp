@@ -19,7 +19,7 @@ export let lotteriesData = [
     location: "Amsterdam",
     startDate: "25.09.2022",
     saleDate: "01.12.2022",
-    userId: "",
+    userId: 1,
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ export let lotteriesData = [
     location: "Groningen",
     startDate: "14.10.2022",
     saleDate: "01.12.2022",
-    userId: "",
+    userId: 2,
   },
   {
     id: 3,
@@ -63,7 +63,7 @@ export let lotteriesData = [
     location: "Eindhoven",
     startDate: "30.09.2022",
     saleDate: "01.12.2022",
-    userId: "",
+    userId: 3,
   },
   {
     id: 4,

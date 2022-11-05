@@ -16,7 +16,7 @@
             const res = await fetch("http://localhost:3000/lotteries/edit/" +id, {
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             method : "PATCH",
                 body: JSON.stringify(data)

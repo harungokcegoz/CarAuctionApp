@@ -1,6 +1,6 @@
 <script>
 
-
+import { tokenStore, userStore } from "../store";
     let username = "";
     let password = "";
     let e = "";
@@ -19,21 +19,33 @@ async function register(){
         method : "POST",
             body: JSON.stringify(data)
     })
-    if (res.status >= 200 && res.status <= 299) {
-        location.href= "/registered";
+    if (res.ok) {
+       const response =  await fetch("http://localhost:3000/users/login", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            method : "POST",
+            body: JSON.stringify(data)
+         })
+         const retrievedData = await response.json()
+            const token = retrievedData.accessToken
+            tokenStore.set(token)
+            userStore.set(retrievedData.user)
+            location.href = '/home'
     } else{
         if(res.status == 400){
-                e = "This username is already taken. Please try again!"
+            e = "This username is already taken. Please try again!"
         }
     }
 } catch (error) {
         //TODO
         //if the username is already taken it sends the message but i couldnt to print on frontend
         console.log(error)
-    }    
-    username = ""
-    password = ""
+    }
+   
 }
+
 
 
 

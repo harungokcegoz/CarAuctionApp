@@ -7,3 +7,6 @@ export let userStore = writable(JSON.parse(localStorage.getItem("user")));
 userStore.subscribe((value) =>
   localStorage.setItem("user", JSON.stringify(value))
 );
+
+export let carMakeFilterStore = writable("");
+export let locationFilterStore = writable("");

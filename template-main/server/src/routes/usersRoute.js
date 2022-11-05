@@ -4,12 +4,17 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { findingLastId } from "../utils/usersDataUtils.js";
+import { ROLE } from "../data/usersData.js";
 
 const router = express.Router();
 dotenv.config();
 
 router.get("/", authenticateToken, function (req, res) {
-  res.json(usersData.filter((lot) => lot.username === req.user.username));
+  if (req.user == ROLE.ADMIN) {
+    res.json(usersData.filter((lot) => lot.username === req.user.username));
+  } else {
+    res.status(403).send("It is not allowed for u!");
+  }
 });
 
 router.post("/register", userTaken, async function (req, res) {
@@ -17,12 +22,12 @@ router.post("/register", userTaken, async function (req, res) {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     req.body.id = findingLastId(usersData) + 1;
     const user = {
-      user_id: req.body.id,
+      userId: req.body.id,
       username: req.body.username,
       password: hashedPassword,
     };
     usersData.push(user);
-    res.status(201).send("The user is created succcesfully!");
+    res.status(201).send(user);
   } catch {
     res.status(500).send();
   }
@@ -47,7 +52,20 @@ router.post("/login", userInfo, async function (req, res) {
   }
 });
 
-function authenticateToken(req, res, next) {
+// function verifyToken() {
+//   let token
+
+//   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, null, (err, data) => {
+//     if (err) {
+//       //403
+//     }
+
+//     req.userFromToken = data
+//     next()
+//   })
+// }
+
+export function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) return res.sendStatus(401);
