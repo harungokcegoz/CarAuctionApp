@@ -13,6 +13,9 @@
   import CarRegistered from "./components/SellACar/CarRegistered.svelte";
     import Navigator from "./components/Navigator.svelte"
   import LotteryDetails from "./components/Inventory/LotteryDetails.svelte";
+  import EditPage from "./components/Profile/EditPage.svelte";
+  import AdminRemovePage from "./components/AdminDashboard/AdminRemovePage.svelte";
+  import AdminEditPage from "./components/AdminDashboard/AdminEditPage.svelte";
 
 
 
@@ -30,6 +33,8 @@
     router("/profile", () => (page = Profile));
     router("/carRegistered", () => (page = CarRegistered));
     router("/inventory/lotteries/:id", () => (page = LotteryDetails));
+    router("/inventory/lotteries/admin/edit/:id", () => (page = AdminEditPage));
+    router("/inventory/lotteries/admin/remove/:id", () => (page = AdminRemovePage));
 
    
     router.start();

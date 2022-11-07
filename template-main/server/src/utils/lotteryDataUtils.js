@@ -9,8 +9,7 @@ export function findLotteryForUser(data, id) {
       lotteries.push(element);
     }
   }
-  // lotteries.push(data.find((lot) => lot.userId === id));
-
+  lotteries.push(data.find((lot) => lot.userId === id));
   return lotteries;
 }
 

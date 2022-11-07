@@ -1,11 +1,13 @@
 <script>
     import Button from "../Button.svelte";
-    let id = location.pathname.replace('/inventory/lotteries/', '');
-    
     import {getLotteryById} from "../../utils/network-utils.js"
-    let arrayLotteries = getLotteryById(id);
-    console.log(arrayLotteries)
-    console.log(id)
+    let id = location.pathname.replace('/inventory/lotteries/', '');
+    import { tokenStore } from "../store.js";
+  import LotteryCards from "./LotteryCards.svelte";
+
+    let arrayLotteries = getLotteryById(id, $tokenStore)
+
+   
 </script>
     {#await arrayLotteries}
             <p>Waiting</p>
@@ -21,53 +23,52 @@
                     <div class="container">
                         <div class="column">
                             <img src={lottery.image} alt="" style="height: 400px; width: 500px; object-fit: cover;" class="rounded">
-                       </div>
+                        </div>
                        <div class="container">
-                        <div class="column">
-                            <div class="column-row" >
-                                <h5 style="text-align: center;"><b>Car Info</b></h5>
-                                <li class="detail"><b>Make:</b> {lottery.carMake}</li>
-                                <li class="detail"><b>Model:</b> {lottery.carModel}</li>
-                                <li class="detail"><b>Year:</b> {lottery.year}</li>
-                                <li class="detail"><b>Mileage:</b> {lottery.mileage}</li>
-                                <li class="detail"><b>Fuel Type:</b> {lottery.fueltype}</li>
-                                <li class="detail"><b>Body Type:</b> {lottery.bodytype}</li>
-                                <li class="detail"><b>Gear Box:</b> {lottery.gearbox}</li>
-                                <li class="detail"><b>Car Condition:</b> {lottery.condition}</li>
-                                
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="column-row" style="">
-                               <h5 style="text-align: center;"><b>Bid Info</b></h5>
-                               <li class="detail"><b>Car Estimated Value:</b> ${lottery.estValue}</li>
-                               <li class="detail"><b>Start Bid:</b> ${lottery.starting_bid}</li>
-                               <li class="detail"><b>Max Bid:</b> ${lottery.max_bid}</li>
-                               <li class="detail"><b>Bid Status:</b> {lottery.bid_status}</li>
-                            </div>
-                            <div class="column-row" style="text-align: center;">
-                                <h5 style="text-align: center;"><b>Make Offer</b></h5>
-                                <div class="numInput" style="margin: 1em;">
-                                    <input type="text" name="bid" id="" placeholder="Your Bid" style="padding: 5px;">
+                            <div class="column">
+                                <div class="column-row" >
+                                    <h5 style="text-align: center;"><b>Car Info</b></h5>
+                                    <li class="detail"><b>Make:</b> {lottery.carMake}</li>
+                                    <li class="detail"><b>Model:</b> {lottery.carModel}</li>
+                                    <li class="detail"><b>Year:</b> {lottery.year}</li>
+                                    <li class="detail"><b>Mileage:</b> {lottery.mileage}</li>
+                                    <li class="detail"><b>Fuel Type:</b> {lottery.fueltype}</li>
+                                    <li class="detail"><b>Body Type:</b> {lottery.bodytype}</li>
+                                    <li class="detail"><b>Gear Box:</b> {lottery.gearbox}</li>
+                                    <li class="detail"><b>Car Condition:</b> {lottery.condition}</li>
+                                    
                                 </div>
-                                <div class="offerButton" style="margin: 5px;">
-                                    <Button name="Make a Offer" href = "#"/>
+                            </div>
+                            <div class="column">
+                                <div class="column-row" style="">
+                                    <h5 style="text-align: center;"><b>Bid Info</b></h5>
+                                    <li class="detail"><b>Car Estimated Value:</b> ${lottery.estValue}</li>
+                                    <li class="detail"><b>Start Bid:</b> ${lottery.startingBid}</li>
+                                    <li class="detail"><b>Max Bid:</b> ${lottery.maxBid}</li>
+                                    <li class="detail"><b>Bid Status:</b> {lottery.bidStatus}</li>
                                 </div>
-                              
+                                <div class="column-row" style="text-align: center;">
+                                    <h5 style="text-align: center;"><b>Make Offer</b></h5>
+                                    <div class="numInput" style="margin: 1em;">
+                                        <input type="text" name="bid" id="" placeholder="Your Bid" style="padding: 5px;">
+                                    </div>
+                                    <div class="offerButton" style="margin: 5px;">
+                                        <button>Make Offer</button>
+                                    </div>
+                                </div>
+                                <div class="column-row" style="">
+                                    <h5 style="text-align: center;"><b>Sale Info</b></h5>
+                                    <li class="detail"><b>Created on:</b> {lottery.startDate}</li>
+                                    <li class="detail"><b>Sale Status:</b> {lottery.sale_status}</li>
+                                    <li class="detail"><b>Sale Date:</b> {lottery.saleDate}</li>
+                                </div>
                             </div>
-                            <div class="column-row" style="">
-                                <h5 style="text-align: center;"><b>Sale Info</b></h5>
-                                <li class="detail"><b>Created on:</b> {lottery.startDate}</li>
-                                <li class="detail"><b>Sale Status:</b> {lottery.sale_status}</li>
-                                <li class="detail"><b>Sale Date:</b> {lottery.saleDate}</li>
-                            </div>
-                        </div>
                        </div>
                       
                     </div>
                 
                 </div>
-                <!-- {/each}   -->
+              
             {/await}
       
 <style>
@@ -105,18 +106,23 @@
     margin-top: 1em;
     border-bottom: 1px solid;
 }
-button {
-	color: black;
-	background: transparent;
-	font-size: 15px;
-	cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    padding: 0.5em 1em;
+button{
+        background:    #DFF6FF;
+		box-shadow: none;
+        border-radius: 11px;
+        width:         140px;
+        height:        40px;
+        color:         #040404;
+        display:       inline-block;
+        font:          normal bold 15px/30px "Calibri", sans-serif;
+        text-align:    center;
+    }
+button:hover{
+	background-color:#256D85;
 }
-button:hover {
-	color: white;
-	background-color: #06283D;
+button:active{
+    position:relative;
+	top:1px;
 }
 
 </style>

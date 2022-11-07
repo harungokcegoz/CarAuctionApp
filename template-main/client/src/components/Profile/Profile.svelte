@@ -1,9 +1,8 @@
 <script>
 import {getUserLotteries, deleteALottery} from "../../utils/network-utils.js"
-import {userStore} from "../store.js"
-import Navigator from "../Navigator.svelte";
+import {userStore, tokenStore} from "../store.js"
 import EditPage from "./EditPage.svelte";
-let profileData = getUserLotteries($userStore.user_id);
+let profileData = getUserLotteries($userStore.userId, $tokenStore);
 let page = "profile";
 let lot_id, carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, location, image;
 
@@ -73,7 +72,7 @@ let lot_id, carMake, carModel, year, mileage, startDate, saleDate, gearbox, fuel
                 </div>
                 <div class="buttonGroup">
                     <button type = "button" on:click={() => {lot_id = lottery.id; carMake = lottery.carMake; carModel = lottery.carModel; year = lottery.year; mileage = lottery.mileage; startDate = lottery.startDate; saleDate = lottery.saleDate; gearbox = lottery.gearbox; fueltype = lottery.fueltype; bodytype = lottery.bodytype; estValue = lottery.estValue; condition = lottery.condition; location = lottery.location; image = lottery.image; page = "editpage";}}>Edit</button>
-                    <button on:click={() => {lot_id = lottery.id; deleteALottery(lot_id)}}>Delete</button>
+                    <button on:click={() => {lot_id = lottery.id; deleteALottery(lot_id, $tokenStore)}}>Delete</button>
                 </div>
             </div> 
             {/each}

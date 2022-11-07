@@ -10,13 +10,12 @@
     let carMakeFilterStore = writable('')
     let locationFilterStore = writable('')
 
-    //let arrayLotteries = getAllLotteries();
     async function uniqueMakes() {
-        const lotteries = await getAllLotteries()
+        const lotteries = await getAllLotteries($tokenStore)
         return [...new Set(lotteries.map(lottery => lottery.carMake))]
     }
     async function uniqueLocations() {
-        const lotteries = await getAllLotteries()
+        const lotteries = await getAllLotteries($tokenStore)
         return [...new Set(lotteries.map(lottery => lottery.location))]
     }
     let page;
@@ -36,11 +35,16 @@
     router.start();
     async function getCars(queryParams){
          const response = await fetch(
-            'http://localhost:3000/lotteries' + (queryParams ? '?' + queryParams.join('&') : '')
+            "http://localhost:3000/lotteries" + (queryParams ? '?' + queryParams.join('&') : ''), {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + $tokenStore,
+                },  
+            }
             )
          return await response.json()
     }
-  
 </script>
 {#if ([undefined, null, ''].includes($tokenStore))}
 <div class="banner">
@@ -57,10 +61,6 @@
                 <div class="bar-title">
                     <h3>Filter</h3>
                 </div>
-                <!-- <div class="input-field">
-                   <label for="">Car Make:</label>
-                   <input type="text" placeholder="Car Make" bind:value={carMake}>
-                </div> -->
                 <div class="input-field">
                     <label for="">Car Make:</label>
                     <select bind:value={carMakeFilter} on:change={() => {

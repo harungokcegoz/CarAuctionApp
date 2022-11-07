@@ -1,8 +1,11 @@
 <script>
   import Button from "../Button.svelte";
   import Inventory from "./Inventory.svelte"; 
+  import {userStore, tokenStore} from "../store.js"
+  import { deleteALottery } from "../../utils/network-utils.js";
 
-    export let carMake, carModel, carYear, lotNum, location, imgSrc, bidStatus, maxBid;  
+    export let carMake, carModel, carYear, lotNum, location, imgSrc, bidStatus, maxBid;
+   
 </script>
 
     <div class="lottery-container">
@@ -32,6 +35,11 @@
             </div>
             <div class="but">
                 <Button name= "View Details" href ={`/inventory/lotteries/${lotNum}`}/>
+                {#if $userStore.role === "admin" }
+                <Button name= "Edit" href ={`/inventory/lotteries/admin/edit/${lotNum}`}/>
+                <!-- sorry for this :( -->
+                <button on:click={() => {deleteALottery(lotNum, $tokenStore)}}>Delete</button>
+                {/if}
             </div>
             <!-- <div class="but">
                 <a href="/inventory/lotteries/{i+1}" on:click={() => {page = LotteryDetails; params = i + 1 ;}}><Button name= "View Details" href = "#"/></a>
@@ -74,6 +82,18 @@
     .but{
         margin-bottom: 2em;
     }
+    button{
+        background:    #DFF6FF;
+		box-shadow: none;
+        border-radius: 11px;
+        width:         140px;
+        height:        40px;
+        color:         #040404;
+        display:       inline-block;
+        font:          normal bold 15px/30px "Calibri", sans-serif;
+        text-align:    center;
+    }
+
 
 
 </style>

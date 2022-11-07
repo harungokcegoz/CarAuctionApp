@@ -1,18 +1,18 @@
+
 <script>
- 
+  import { getLotteryById } from "../../utils/network-utils.js";
     import {tokenStore } from "../store.js"
-    import Profile from "./Profile.svelte";
+
+    let page = "edit";
+    let id = location.pathname.replace('/inventory/lotteries/admin/edit/', '');
+    let carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, locationn, image;
     
    
-    export let id;
-    let page = "edit";
-    
-    
-    export let carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, location, image;
-     
+    const lot =  getLotteryById(id, $tokenStore);
+    console.log(lot)
     async function submit(){
      
-        const data = { carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, location, image }
+        const data = { carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, locationn, image }
         try {
             const res = await fetch("http://localhost:3000/lotteries/edit/" +id, {
             headers: {
@@ -34,7 +34,9 @@
         }  
     }
     
-    
+    function getId(){
+         
+    }
     </script>
     
     {#if ([undefined, null, ''].includes($tokenStore))}
@@ -44,6 +46,7 @@
     {:else}
     {#if page == "edit"}
     <body>  
+       
         <div class="container">
             <header>Edit the Lottery</header>
         
@@ -135,7 +138,7 @@
         
                             <div class="input-field"> 
                                 <label>Location</label>
-                                <input type="text" placeholder="Enter location" required bind:value={location}>
+                                <input type="text" placeholder="Enter locationn" required bind:value={locationn}>
                             </div>
         
                             <div class="input-field" style="width: 100%;">
@@ -153,8 +156,6 @@
             </form>
         </div>
     </body>
-    {:else}
-    <Profile/>
     {/if}
         
     {/if}
