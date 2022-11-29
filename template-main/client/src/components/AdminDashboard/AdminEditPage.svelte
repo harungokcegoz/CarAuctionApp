@@ -14,7 +14,7 @@
      
         const data = { carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, locationn, image }
         try {
-            const res = await fetch("http://localhost:3000/lotteries/edit/" +id, {
+            const res = await fetch("http://localhost:3000/lotteries/" +id, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

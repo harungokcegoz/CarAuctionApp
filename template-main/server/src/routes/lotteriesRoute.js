@@ -4,12 +4,13 @@ import {
   findALottery,
   findLotteryForUser,
   findingLastId,
-} from "../utils/lotteryDataUtils.js";
-import { authenticateToken } from "./usersRoute.js";
+} from "../utils/lotteriesDataUtils.js";
+import { verifyToken } from "../middlewares/verifyToken.js";
+import {checkTheNumber} from "../middlewares/checkTheNumber.js";
 
 const router = express.Router();
 //add authenticateToken middleware for admin
-router.get("/", authenticateToken, function (req, res) {
+router.get("/", verifyToken, function (req, res) {
   let result = lotteriesData;
 
   if ("carMake" in req.query) {
@@ -21,29 +22,24 @@ router.get("/", authenticateToken, function (req, res) {
 
   return res.json(result);
 });
-router.post("/", authenticateToken, function (req, res) {
-  const result = {};
-  let make = req.query.carMake;
-  let maxBidFrom = req.query.maxBidFrom;
-  let maxBidTo = req.query.maxBidTo;
-  let location = req.query.location;
 
-  if (req.query === null) return res.json(lotteriesData);
-  else {
-    const foundMake = lotteriesData.filter((lot) => lot.carMake === make);
-    const foundLocation = lotteriesData.filter(
-      (lot) => lot.location === location
-    );
-    result = { foundMake, foundLocation };
-    return res.json(result);
-  }
-});
+// router.get("/", authenticateToken, function (req, res) {
+//   const result = {};
+//   let make = req.query.carMake;
+//   let location = req.query.location;
+//
+//   if (req.query === null) return res.json(lotteriesData);
+//   else {
+//     const foundMake = lotteriesData.filter((lot) => lot.carMake === make);
+//     const foundLocation = lotteriesData.filter(
+//       (lot) => lot.location === location
+//     );
+//     result = { foundMake, foundLocation };
+//     return res.json(result);
+//   }
+// });
 
-router.get("/:id", authenticateToken, function (req, res) {
-  if (isNaN(req.params.id)) {
-    return res.status(400).json({ error: "The provided ID is not a number!" });
-  }
-
+router.get("/:id", verifyToken, checkTheNumber, function (req, res) {
   const resLot = findALottery(lotteriesData, Number.parseInt(req.params.id));
 
   if (resLot) {
@@ -53,11 +49,7 @@ router.get("/:id", authenticateToken, function (req, res) {
   return res.status(404).json({ error: "The lottery with ID cant be found" });
 });
 
-router.get("/user/:id", authenticateToken, function (req, res) {
-  if (isNaN(req.params.id)) {
-    return res.status(400).json({ error: "The provided ID is not a number!" });
-  }
-
+router.get("/users/:id", verifyToken, checkTheNumber, function (req, res) {
   const resLot = findLotteryForUser(
     lotteriesData,
     Number.parseInt(req.params.id)
@@ -71,16 +63,16 @@ router.get("/user/:id", authenticateToken, function (req, res) {
     .status(404)
     .json({ error: "The lottery with user ID cant be found" });
 });
-router.post("/register", authenticateToken, function (req, res) {
+router.post("/", verifyToken, function (req, res) {
   try {
     req.body.id = findingLastId(lotteriesData) + 1;
     lotteriesData.push(req.body);
     res.status(201).json(req.body);
   } catch {
-    res.status(500).send();
+    res.status(500).send("It cannot be added!");
   }
 });
-router.patch("/edit/:id", function (req, res) {
+router.patch("/:id", function (req, res) {
   const { id } = req.params;
   let changes = req.body;
 
@@ -94,7 +86,7 @@ router.patch("/edit/:id", function (req, res) {
   }
 });
 
-router.delete("/delete/:id", authenticateToken, function (req, res) {
+router.delete("/:id", verifyToken, function (req, res) {
   const resLot = findLotteryForUser(
     lotteriesData,
     Number.parseInt(req.params.id)

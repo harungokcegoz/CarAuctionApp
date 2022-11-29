@@ -5,7 +5,7 @@ import {tokenStore, userStore} from "../store.js"
 let carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, location, image;
 
 
-let userId = $userStore.user_id;
+let userId = $userStore.userId;
 
 
 
@@ -13,7 +13,7 @@ async function submit(){
  
     const data = { userId, carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, location, image }
     try {
-        const res = await fetch("http://localhost:3000/lotteries/register", {
+        const res = await fetch("http://localhost:3000/lotteries/", {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

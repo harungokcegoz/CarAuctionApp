@@ -5,19 +5,20 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { findingLastId } from "../utils/usersDataUtils.js";
 import { ROLE } from "../data/usersData.js";
+import { verifyToken } from "../middlewares/verifyToken.js";
+import { findUser, userTaken } from "../middlewares/findUser.js";
+import {verifyAdmin} from "../middlewares/verifyAdmin.js";
 
 const router = express.Router();
 dotenv.config();
 
-router.get("/", authenticateToken, function (req, res) {
-  if (req.user == ROLE.ADMIN) {
-    res.json(usersData.filter((lot) => lot.username === req.user.username));
-  } else {
-    res.status(403).send("It is not allowed for u!");
-  }
+router.get("/", verifyToken, verifyAdmin, function (req, res) {
+
+  res.json(usersData.filter((lot) => lot.username === req.user.username));
+
 });
 
-router.post("/register", userTaken, async function (req, res) {
+router.post("/", userTaken, async function (req, res) {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     req.body.id = findingLastId(usersData) + 1;
@@ -33,7 +34,7 @@ router.post("/register", userTaken, async function (req, res) {
   }
 });
 
-router.post("/login", userInfo, async function (req, res) {
+router.post("/tokens", findUser, async function (req, res) {
   const user = usersData.find((user) => user.username === req.body.username);
   const { password, ...bodyNoPassword } = user;
   const accessToken = jwt.sign(bodyNoPassword, process.env.ACCESS_TOKEN_SECRET);
@@ -51,49 +52,5 @@ router.post("/login", userInfo, async function (req, res) {
     res.status(500).send();
   }
 });
-
-// function verifyToken() {
-//   let token
-
-//   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, null, (err, data) => {
-//     if (err) {
-//       //403
-//     }
-
-//     req.userFromToken = data
-//     next()
-//   })
-// }
-
-export function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401);
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-}
-
-function userInfo(req, res, next) {
-  const user = usersData.find((user) => user.username === req.body.username);
-  if (user == null) {
-    return res
-      .status(400)
-      .send("User cannot found! Please be sure you enter a valid username!");
-  } else {
-    next();
-  }
-}
-function userTaken(req, res, next) {
-  const user = usersData.find((user) => user.username === req.body.username);
-  if (!(user == null)) {
-    return res.status(400).send("This username is already taken!");
-  } else {
-    next();
-  }
-}
 
 export default router;

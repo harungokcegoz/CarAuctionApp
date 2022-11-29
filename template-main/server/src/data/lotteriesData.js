@@ -8,8 +8,7 @@ export let lotteriesData = [
     gearbox: "Automatic",
     fueltype: "Gasoline",
     bodytype: "Coupe",
-    image:
-      "https://prod.pictures.autoscout24.net/listing-images/d2d435f7-a820-4195-8a35-d544ebd7ccef_9d7b9349-c4a2-4470-b63f-75122e35be89.jpg/720x540.webp",
+    image: "https://media.autoweek.nl/m/obzyrqcbjg68_800.jpg",
     estValue: 305000,
     bidStatus: "Open",
     saleStatus: "Not Sold",
@@ -31,7 +30,7 @@ export let lotteriesData = [
     fueltype: "Gasoline",
     bodytype: "Sedan",
     image:
-      "https://prod.pictures.autoscout24.net/listing-images/048a5211-7db6-44d8-ae2b-480f104e8c22_2b10e056-550b-4df6-a5b3-c1671970ed97.jpg/720x540.webp",
+      "https://www.autoblog.nl/files/2021/01/nieuwe-bmw-m5-cs-eindelijk-officieel-2020-970-022-970x546.jpg",
     estValue: 210000,
     bidStatus: "Open",
     saleStatus: "Not Sold",
@@ -53,7 +52,7 @@ export let lotteriesData = [
     fueltype: "Gasoline",
     bodytype: "Coupe",
     image:
-      "https://prod.pictures.autoscout24.net/listing-images/bdac65a8-f606-4f29-a6da-db4a836be139_73c4723d-8d92-45b3-9bb7-2f0756710cef.jpg/720x540.webp",
+      "https://cdn.carbuzz.com/gallery-images/2015-ferrari-458-italia-carbuzz-586360.jpg",
     estValue: 425000,
     bidStatus: "Open",
     saleStatus: "Not Sold",
@@ -79,7 +78,7 @@ export let lotteriesData = [
     estValue: 550.0,
     bidStatus: "Closed",
     saleStatus: "Sold",
-    startingBid: 420.0,
+    startingBid: 420000,
     maxBid: 542555,
     condition: "Used",
     location: "Deventer",
@@ -119,7 +118,7 @@ export let lotteriesData = [
     fueltype: "Gasoline",
     bodytype: "Coupe",
     image:
-      "https://prod.pictures.autoscout24.net/listing-images/e5bad5b7-a561-4b52-a457-1d2f09c127dc_7d0fc526-026d-4399-9aff-01675b2b954e.jpg/720x540.webp",
+      "https://carsguide-res.cloudinary.com/image/upload/f_auto,fl_lossy,q_auto,t_cg_hero_large/v1/editorial/review/hero_image/2021-bmw-m8-competition-gran-coupe-white-sedan-james-cleary-1001x565-%281%29.jpg",
     estValue: 155000,
     bidStatus: "Open",
     saleStatus: "Not Sold",
@@ -295,7 +294,7 @@ export let lotteriesData = [
     fueltype: "Gasoline",
     bodytype: "Coupe",
     image:
-      "https://prod.pictures.autoscout24.net/listing-images/817d1a06-d269-4ae7-ade8-eabb0dcabe88_d0478965-af73-4e19-ad50-45c338a75de8.jpg/720x540.webp",
+      "https://i.gaw.to/vehicles/photos/09/27/092767_2019_bugatti_Chiron.jpg?640x400",
     estValue: 4300000,
     bidStatus: "Open",
     saleStatus: "Not Sold",
@@ -427,7 +426,7 @@ export let lotteriesData = [
     fueltype: "Gasoline",
     bodytype: "Sedan",
     image:
-      "https://prod.pictures.autoscout24.net/listing-images/53d7f287-9788-4dfb-b35b-b02b6020d401_5b41ca8b-db5f-4aaf-84d9-4e82b9264dd8.jpg/720x540.webp",
+      "https://www.hartvoorautos.nl/wp-content/uploads/2021/05/Mercedes-Maybach-S680-1.jpg",
     estValue: 39000,
     bidStatus: "Open",
     saleStatus: "Not Sold",

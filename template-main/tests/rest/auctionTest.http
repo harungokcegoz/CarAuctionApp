@@ -1,78 +1,21 @@
 ### Getting all products and expecting 200
-GET {{host}}:{{port}}/products
+GET {{host}}:{{port}}/lotteries
 Accept: application/json
+Authorization: Bearer {{token}}
 
 > {%
 client.test(
-    "Getting all products and expecting 200",
+    "Getting all auctions and expecting 200",
     function() {
         client.assert(response.status === 200, "Response status is not 200");
     }
 );
 %}
-### Getting specific product based on ID and expecting 200
-GET {{host}}:{{port}}/products/{id}
-Accept: application/json
 
-> {%
-client.test(
-    "Getting specific product based on ID and expecting 200",
-    function() {
-        client.assert(response.status === 200, "Response status is not 200");
-    }
-);
-%}
-### Getting all users and expecting 200
-GET {{host}}:{{port}}/users
+### Adding specific car and expecting 201
+POST {{host}}:{{port}}/lotteries/
 Accept: application/json
-
-> {%
-client.test(
-    "Getting all users and expecting 200",
-    function() {
-        client.assert(response.status === 200, "Response status is not 200");
-    }
-);
-%}
-### Getting specific user based on ID and expecting 200
-GET {{host}}:{{port}}/users/{id}
-Accept: application/json
-
-> {%
-client.test(
-    "Getting specific user based on ID and expecting 200",
-    function() {
-        client.assert(response.status === 200, "Response status is not 200");
-    }
-);
-%}
-### Getting all orders and expecting 200
-GET {{host}}:{{port}}/orders
-Accept: application/json
-
-> {%
-client.test(
-    "Getting all orders and expecting 200",
-    function() {
-        client.assert(response.status === 200, "Response status is not 200");
-    }
-);
-%}
-### Getting specific user based on ID and expecting 200
-GET {{host}}:{{port}}/orders/{id}
-Accept: application/json
-
-> {%
-client.test(
-    "Getting specific orders based on ID and expecting 200",
-    function() {
-        client.assert(response.status === 200, "Response status is not 200");
-    }
-);
-%}
-### Adding specific product and expecting 201
-POST {{host}}:{{port}}/add/products
-Accept: application/json
+Authorization: Bearer {{token}}
 
 > {%
 client.test(
@@ -82,8 +25,122 @@ client.test(
     }
 );
 %}
+
+### Getting specific car based on ID and expecting 200
+GET {{host}}:{{port}}/lotteries/{{id}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Getting specific car based on ID and expecting 200",
+    function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    }
+);
+%}
+
+### Update the product and expecting 200
+PATCH {{host}}:{{port}}/lotteries/{{id}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Getting specific car based on ID and expecting 200",
+    function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    }
+);
+%}
+
+### Delete the product and expecting 201
+DELETE {{host}}:{{port}}/lotteries/{{id}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Getting specific car based on ID and expecting 201",
+    function() {
+        client.assert(response.status === 201, "Response status is not 200");
+    }
+);
+%}
+
+### Getting a user basen on user ID on the product and expecting 200
+GET {{host}}:{{port}}/lotteries/users/{{id}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Getting all users and expecting 200",
+    function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    }
+);
+%}
+
+### Getting all users and expecting 200
+GET {{host}}:{{port}}/users
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Getting all users and expecting 200",
+    function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    }
+);
+%}
+
+
 ### Adding specific user and expecting 201
-POST {{host}}:{{port}}/add/users
+POST {{host}}:{{port}}/users
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Adding specific user and expecting 201",
+    function() {
+        client.assert(response.status === 201, "Response status is not 201");
+    }
+);
+%}
+
+### Getting all bids and expecting 200
+GET {{host}}:{{port}}/bids
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Getting all bids and expecting 200",
+    function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    }
+);
+%}
+
+### Getting a specific bid and expecting 200
+GET {{host}}:{{port}}/bids/{{id}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Getting a specific bid and expecting 200",
+    function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    }
+);
+%}
+
+### Adding specific bid and expecting 201
+POST {{host}}:{{port}}/bids
 Accept: application/json
 
 > {%
@@ -94,90 +151,24 @@ client.test(
     }
 );
 %}
-### Adding specific order and expecting 201
-POST {{host}}:{{port}}/add/orders
+
+### Getting a specific bid and expecting 200
+GET {{host}}:{{port}}/bids/auctions/{{id}}
 Accept: application/json
+Authorization: Bearer {{token}}
 
 > {%
 client.test(
-    "Adding specific product and expecting 201",
+    "Getting a specific bid and expecting 200",
     function() {
-        client.assert(response.status === 201, "Response status is not 201");
+        client.assert(response.status === 200, "Response status is not 200");
     }
 );
 %}
-### Deleteing specific product based on ID and expecting 202
-DELETE {{host}}:{{port}}/remove/products/{id}
-Accept: application/json
 
-> {%
-client.test(
-    "Deleteing specific product based on ID and expecting 202",
-    function() {
-        client.assert(response.status === 202, "Response status is not 202");
-    }
-);
-%}
-### Deleteing specific user based on ID and expecting 202
-DELETE {{host}}:{{port}}/remove/users/{id}
-Accept: application/json
 
-> {%
-client.test(
-    "Deleteing specific user based on ID and expecting 202",
-    function() {
-        client.assert(response.status === 202, "Response status is not 202");
-    }
-);
-%}
-### Deleteing specific order based on ID and expecting 202
-DELETE {{host}}:{{port}}/remove/orders/{id}
-Accept: application/json
 
-> {%
-client.test(
-    "Deleteing specific order based on ID and expecting 202",
-    function() {
-        client.assert(response.status === 202, "Response status is not 202");
-    }
-);
-%}
-### Updating specific product's content based on ID and expecting 201
-PUT {{host}}:{{port}}/update/products/{id}
-Accept: application/json
 
-> {%
-client.test(
-    "Updating specific product's content based on ID and expecting 201",
-    function() {
-        client.assert(response.status === 201, "Response status is not 201");
-    }
-);
-%}
-### Updating specific user's content based on ID and expecting 201
-PUT {{host}}:{{port}}/update/users/{id}
-Accept: application/json
-
-> {%
-client.test(
-    "Updating specific user's content based on ID and expecting 201",
-    function() {
-        client.assert(response.status === 201, "Response status is not 201");
-    }
-);
-%}
-### Updating specific order's content based on ID and expecting 201
-PUT {{host}}:{{port}}/update/orders/{id}
-Accept: application/json
-
-> {%
-client.test(
-    "Updating specific order's content based on ID and expecting 201",
-    function() {
-        client.assert(response.status === 201, "Response status is not 201");
-    }
-);
-%}
 
 
 

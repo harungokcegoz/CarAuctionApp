@@ -1,6 +1,6 @@
 <script>
     import Lottery from "./LotteryCards.svelte"
-    import {getAllLotteries} from "../../utils/network-utils"
+    import {getAllLotteries} from "../../utils/network-utils.js"
     import LotteryDetails from "./LotteryDetails.svelte"
     import { tokenStore} from "../store.js";
     import { writable } from "svelte/store";
@@ -22,8 +22,6 @@
     let params;
     let carMakeFilter, locationFilter;
     $: cars = getCars([$carMakeFilterStore, $locationFilterStore])
-    let filterData
-    // router("/inventory", () => (page = "/"));
     router(
         "/inventory/lotteries/:id",
         (ctx, next) => {

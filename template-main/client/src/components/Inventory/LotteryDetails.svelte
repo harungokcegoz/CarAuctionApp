@@ -4,6 +4,7 @@
     let id = location.pathname.replace('/inventory/lotteries/', '');
     import { tokenStore } from "../store.js";
   import LotteryCards from "./LotteryCards.svelte";
+    import BidSection from "./BidSection.svelte";
 
     let arrayLotteries = getLotteryById(id, $tokenStore)
 
@@ -48,13 +49,7 @@
                                     <li class="detail"><b>Bid Status:</b> {lottery.bidStatus}</li>
                                 </div>
                                 <div class="column-row" style="text-align: center;">
-                                    <h5 style="text-align: center;"><b>Make Offer</b></h5>
-                                    <div class="numInput" style="margin: 1em;">
-                                        <input type="text" name="bid" id="" placeholder="Your Bid" style="padding: 5px;">
-                                    </div>
-                                    <div class="offerButton" style="margin: 5px;">
-                                        <button>Make Offer</button>
-                                    </div>
+                                   <BidSection/>
                                 </div>
                                 <div class="column-row" style="">
                                     <h5 style="text-align: center;"><b>Sale Info</b></h5>
@@ -106,23 +101,6 @@
     margin-top: 1em;
     border-bottom: 1px solid;
 }
-button{
-        background:    #DFF6FF;
-		box-shadow: none;
-        border-radius: 11px;
-        width:         140px;
-        height:        40px;
-        color:         #040404;
-        display:       inline-block;
-        font:          normal bold 15px/30px "Calibri", sans-serif;
-        text-align:    center;
-    }
-button:hover{
-	background-color:#256D85;
-}
-button:active{
-    position:relative;
-	top:1px;
-}
+
 
 </style>

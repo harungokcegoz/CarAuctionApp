@@ -11,14 +11,7 @@
     <div class="logo">
         <Logo/>
     </div>
-    <div class="searcher">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-         </div>
-    </div>
+
     <div class="buttons">
         {#if ([undefined, null, ''].includes($tokenStore))}
         <Button name = "Register" href = "/register"/>

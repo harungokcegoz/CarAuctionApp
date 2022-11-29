@@ -2,15 +2,14 @@
   import { tokenStore, userStore } from "../store";
 
 
-    let username = ""
+    let username = "";
     let password = "";
-    let userId = "";
     let e = "";
 
     async function login(){
         const data = { username, password } 
         try {
-            const response = await fetch("http://localhost:3000/users/login", {
+            const response = await fetch("http://localhost:3000/users/tokens", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

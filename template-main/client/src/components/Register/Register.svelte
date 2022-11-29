@@ -11,7 +11,7 @@ async function register(){
     const data = { username, password }
     console.log(data);
     try {
-        const res = await fetch("http://localhost:3000/users/register", {
+        const res = await fetch("http://localhost:3000/users/", {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -20,7 +20,7 @@ async function register(){
             body: JSON.stringify(data)
     })
     if (res.ok) {
-       const response =  await fetch("http://localhost:3000/users/login", {
+       const response =  await fetch("http://localhost:3000/users/tokens", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
