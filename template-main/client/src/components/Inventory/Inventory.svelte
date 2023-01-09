@@ -38,16 +38,16 @@
                     Accept: "application/json",
                     "Content-Type": "application/json",
                     Authorization: "Bearer " + $tokenStore,
-                },  
+                },
             }
             )
          return await response.json()
     }
 </script>
 {#if ([undefined, null, ''].includes($tokenStore))}
-<div class="banner">
-    <h1>You need to login firstly!</h1>
-</div>
+    <div class="banner">
+        <h1>You need to login firstly!</h1>
+    </div>
     {:else}
     <main>
         <div class="title">
@@ -60,29 +60,29 @@
                     <h3>Filter</h3>
                 </div>
                 <div class="input-field">
-                    <label for="">Car Make:</label>
+                    <label>Car Make:</label>
                     <select bind:value={carMakeFilter} on:change={() => {
                         carMakeFilterStore.set(carMakeFilter === undefined ? '' : `carMake=${carMakeFilter}`)
                         }}>
                    {#await uniqueMakes()}
                         <option value="">Waiting</option>
-                   {:then makes} 
+                   {:then makes}
                    <option selected value={undefined}>Select Make</option>
                     {#each makes as carMake}
-                    <option>{carMake}</option> 
+                    <option>{carMake}</option>
                     {/each}
                    {/await}
                     </select>
                  </div>
-                 
+
                 <div class="input-field">
-                    <label for="">Location:</label>
+                    <label>Location:</label>
                     <select bind:value={locationFilter} on:change={() => {
                         locationFilterStore.set(locationFilter === undefined ? '' : `location=${locationFilter}`)
                     }}>
                    {#await uniqueLocations()}
                         <option value="">Waiting</option>
-                   {:then locations} 
+                   {:then locations}
                    <option selected value={undefined}>Select Location</option>
                     {#each locations as location}
                         <option>{location}</option>
@@ -103,9 +103,9 @@
               {#each lotteries as lottery, i}
                 <div class="item">
                     {#if (lottery.bidStatus == undefined)}
-                    <Lottery lotNum = {lottery.id} carMake = {lottery.carMake} carModel = {lottery.carModel} carYear = {lottery.year} bidStatus = {"Waiting an admin confirmation."} maxBid = {" Waiting an admin confirmation."} imgSrc = {lottery.image} location = {lottery.location}/>
-                    {:else}   
-                    <Lottery lotNum = {lottery.id} carMake = {lottery.carMake} carModel = {lottery.carModel} carYear = {lottery.year} bidStatus = {lottery.bidStatus} maxBid = {lottery.maxBid} imgSrc = {lottery.image} location = {lottery.location}/>
+                        <svelte:component this={Lottery} card={lottery} />
+                    {:else}
+                        <svelte:component this={Lottery} card={lottery} />
                     {/if}
                 </div>
               {/each}  
@@ -136,7 +136,7 @@
 }
 .banner{
     text-align: center;
-    /* margin: 5em auto; */
+    margin: 5em auto;
 }
 
 .filterBar{

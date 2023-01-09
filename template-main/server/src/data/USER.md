@@ -1,9 +1,9 @@
 ### ADMIN USER
 
-username : harun
+username : admin
 password : gokcegoz
 
 ### REGULAR USER
 
-username : mert
+username : user
 password : harun

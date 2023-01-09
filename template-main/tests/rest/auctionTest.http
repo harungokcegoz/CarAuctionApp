@@ -1,3 +1,6 @@
+//Before run these test please run auth test to get a valid token. Then you can run these tests.
+//I still have receive some errors on all testing but when I test indivually or manually it passes.
+
 ### Getting all products and expecting 200
 GET {{host}}:{{port}}/lotteries
 Accept: application/json
@@ -12,21 +15,7 @@ client.test(
 );
 %}
 
-### Adding specific car and expecting 201
-POST {{host}}:{{port}}/lotteries/
-Accept: application/json
-Authorization: Bearer {{token}}
-
-> {%
-client.test(
-    "Adding specific product and expecting 201",
-    function() {
-        client.assert(response.status === 201, "Response status is not 201");
-    }
-);
-%}
-
-### Getting specific car based on ID and expecting 200
+### Getting specific auction based on ID and expecting 200
 GET {{host}}:{{port}}/lotteries/{{id}}
 Accept: application/json
 Authorization: Bearer {{token}}
@@ -40,7 +29,49 @@ client.test(
 );
 %}
 
-### Update the product and expecting 200
+### Getting a auction associated with the user with the specified ID and expecting 200
+GET {{host}}:{{port}}/lotteries/users/{{id}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Getting the user with specified ID and expecting 200",
+    function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    }
+);
+%}
+
+### Adding a new auction to the list of auction data and expecting 201
+POST {{host}}:{{port}}/lotteries/
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Adding specific product and expecting 201",
+    function() {
+        client.assert(response.status === 201, "Response status is not 201");
+    }
+);
+%}
+
+### Delete the auction and expecting 200
+DELETE {{host}}:{{port}}/lotteries/{{id}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Delete the auction with the specified ID and expecting 200",
+    function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    }
+);
+%}
+
+### Update the auction and expecting 200
 PATCH {{host}}:{{port}}/lotteries/{{id}}
 Accept: application/json
 Authorization: Bearer {{token}}
@@ -48,34 +79,6 @@ Authorization: Bearer {{token}}
 > {%
 client.test(
     "Getting specific car based on ID and expecting 200",
-    function() {
-        client.assert(response.status === 200, "Response status is not 200");
-    }
-);
-%}
-
-### Delete the product and expecting 201
-DELETE {{host}}:{{port}}/lotteries/{{id}}
-Accept: application/json
-Authorization: Bearer {{token}}
-
-> {%
-client.test(
-    "Getting specific car based on ID and expecting 201",
-    function() {
-        client.assert(response.status === 201, "Response status is not 200");
-    }
-);
-%}
-
-### Getting a user basen on user ID on the product and expecting 200
-GET {{host}}:{{port}}/lotteries/users/{{id}}
-Accept: application/json
-Authorization: Bearer {{token}}
-
-> {%
-client.test(
-    "Getting all users and expecting 200",
     function() {
         client.assert(response.status === 200, "Response status is not 200");
     }
@@ -96,8 +99,7 @@ client.test(
 );
 %}
 
-
-### Adding specific user and expecting 201
+### Adding a user and expecting 201
 POST {{host}}:{{port}}/users
 Accept: application/json
 Authorization: Bearer {{token}}
@@ -139,15 +141,30 @@ client.test(
 );
 %}
 
-### Adding specific bid and expecting 201
+### Adding a bid and expecting 201
 POST {{host}}:{{port}}/bids
 Accept: application/json
+Authorization: Bearer {{token}}
 
 > {%
 client.test(
     "Adding specific user and expecting 201",
     function() {
         client.assert(response.status === 201, "Response status is not 201");
+    }
+);
+%}
+
+### Getting a specific bid and expecting 200
+GET {{host}}:{{port}}/bids/users/{{id}}
+Accept: application/json
+Authorization: Bearer {{token}}
+
+> {%
+client.test(
+    "Getting a specific bid and expecting 200",
+    function() {
+        client.assert(response.status === 200, "Response status is not 200");
     }
 );
 %}
@@ -165,6 +182,7 @@ client.test(
     }
 );
 %}
+
 
 
 

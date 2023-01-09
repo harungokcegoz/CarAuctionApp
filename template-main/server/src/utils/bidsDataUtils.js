@@ -21,7 +21,6 @@ export function findBidOfUser(data, id) {
             bids.push(element);
         }
     }
-    bids.push(data.find((bid) => bid.userId === id));
     return bids;
 }
 export function findBidsOfAuction(data, id) {

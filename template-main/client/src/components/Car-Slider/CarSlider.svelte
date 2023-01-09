@@ -2,8 +2,8 @@
 
     import CarSliderCard from "./CarCard.svelte";
 
-  
-    
+
+
     let arrayTopCars = [
         {
             "title": "2022 Porsche 911 Turbo S",
@@ -76,7 +76,7 @@
             "imgSrc":"https://prod.pictures.autoscout24.net/listing-images/0112c4dc-8e89-4410-9dcc-c26907560b48_3e704a76-38b2-4158-8845-dd5f2178876e.jpg/480x360.webp"
         }
     ]
-    
+
     let i = 0;
     function next(){
         console.log(i);
@@ -84,13 +84,13 @@
             i = 0;
         } else {
             i++;
-        }  
+        }
     }
     function prev(){
         if(i == 0){
             i = 6;
         } else {
-             i--;
+            i--;
         }
     }
 
@@ -105,19 +105,19 @@
 
 
 
-   <div class="item" id="item">
-    <CarSliderCard title={arrayTopCars[i].title} lotNum ={arrayTopCars[i].lotNum} curBid={arrayTopCars[i].curBid} location={arrayTopCars[i].location} imgSrc={arrayTopCars[i].imgSrc}/>	
-   </div>
-   <div class="item">
-    <CarSliderCard title={arrayTopCars[i+1].title} lotNum ={arrayTopCars[i+1].lotNum} curBid={arrayTopCars[i+1].curBid} location={arrayTopCars[i+1].location} imgSrc={arrayTopCars[i+1].imgSrc}/>	
-   </div>
-   <div class="item">
-    <CarSliderCard title={arrayTopCars[i+2].title} lotNum ={arrayTopCars[i+2].lotNum} curBid={arrayTopCars[i+2].curBid} location={arrayTopCars[i+2].location} imgSrc={arrayTopCars[i+2].imgSrc}/>	
-   </div>
-   <div class="item">
-    <CarSliderCard title={arrayTopCars[i+3].title} lotNum ={arrayTopCars[i+3].lotNum} curBid={arrayTopCars[i+3].curBid} location={arrayTopCars[i+3].location} imgSrc={arrayTopCars[i+3].imgSrc}/>	
-   </div>
-   <button class="nxt-btn" id="nxt-btn" type="button"><i class="fa-solid fa-chevron-right" on:click={next}></i></button>
+    <div class="item" id="item">
+        <CarSliderCard title={arrayTopCars[i].title} lotNum ={arrayTopCars[i].lotNum} curBid={arrayTopCars[i].curBid} location={arrayTopCars[i].location} imgSrc={arrayTopCars[i].imgSrc}/>
+    </div>
+    <div class="item">
+        <CarSliderCard title={arrayTopCars[i+1].title} lotNum ={arrayTopCars[i+1].lotNum} curBid={arrayTopCars[i+1].curBid} location={arrayTopCars[i+1].location} imgSrc={arrayTopCars[i+1].imgSrc}/>
+    </div>
+    <div class="item">
+        <CarSliderCard title={arrayTopCars[i+2].title} lotNum ={arrayTopCars[i+2].lotNum} curBid={arrayTopCars[i+2].curBid} location={arrayTopCars[i+2].location} imgSrc={arrayTopCars[i+2].imgSrc}/>
+    </div>
+    <div class="item">
+        <CarSliderCard title={arrayTopCars[i+3].title} lotNum ={arrayTopCars[i+3].lotNum} curBid={arrayTopCars[i+3].curBid} location={arrayTopCars[i+3].location} imgSrc={arrayTopCars[i+3].imgSrc}/>
+    </div>
+    <button class="nxt-btn" id="nxt-btn" type="button"><i class="fa-solid fa-chevron-right" on:click={next}></i></button>
 </div>
 
 
@@ -160,6 +160,5 @@
         float: right;
         margin-left: 1em;
     }
-    
-</style>
 
+</style>

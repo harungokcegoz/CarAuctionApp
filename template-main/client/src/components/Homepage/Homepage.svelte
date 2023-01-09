@@ -3,7 +3,8 @@
     import HomepageInfo from "./HomepageInfo.svelte";
     import { tokenStore } from "../store";
 
-  console.log(tokenStore)
+
+
 </script>
     {#if ([undefined, null, ''].includes($tokenStore))}
     <div class="banner">
@@ -16,12 +17,17 @@
             <div class="main-cars-slider">
                 <CarSlider/>
             </div>
+
         
             <div class="main-info">
                <HomepageInfo/>
             </div>
             </main>
     {/if}
+
+
+
+
     
 <style>
 .main-cars-slider{
@@ -43,5 +49,7 @@
 
 
 </style>
+
+
 
 

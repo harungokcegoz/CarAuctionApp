@@ -1,90 +1,119 @@
 <script>
-import {getUserLotteries, deleteALottery} from "../../utils/network-utils.js"
+import {getUserLotteries, deleteALottery, getBidsOfUser} from "../../utils/network-utils.js"
 import {userStore, tokenStore} from "../store.js"
 import EditPage from "./EditPage.svelte";
-let profileData = getUserLotteries($userStore.userId, $tokenStore);
+
+
+let userId = $userStore.userId;
+let profileData = getUserLotteries(userId, $tokenStore);
 let page = "profile";
 let lot_id, carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, location, image;
-
+let bidsData = getBidsOfUser(userId,$tokenStore);
+console.log(bidsData);
 </script>
-<div class="container">
-    <div class="lottery">
-        {#await profileData}
-        <p>Waiting</p>
-        {:then lotteries} 
-       
-        {#if page == "profile"}
-        <div class="header">
-            <h1 style="text-align: center; border-bottom: solid rgba(128, 128, 128, 0.585);
-            padding: 8px 1em">Profile</h1>
-            <br>
-            <h3>Welcome {$userStore.username}!</h3>
-            <br>
-            <br>
-            <br>
-            <h3>Your Auction(s):</h3>
-            <br>
-        </div>
-            {#each lotteries as lottery, i}
-            <div class="detail-page">
-                <div class="detail-page-title">
-                    <div class="d-inline">
-                        <h2><b>Auction: {i+1} </b></h2>
-                        <h2>{lottery.year} {lottery.carMake} {lottery.carModel}</h2>
-                        <h9> <b>Lot# </b>{lottery.id} | <b>Location:</b> {lottery.location} | <b>Sale Date:</b> {lottery.saleDate}</h9>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="column">
-                        <img src={lottery.image} alt="" style="height: 400px; width: 500px; object-fit: cover;" class="rounded">
-                   </div>
-                   <div class="container">
-                    <div class="column">
-                        <div class="column-row" >
-                            <h5 style="text-align: center;"><b>Car Info</b></h5>
-                            <li class="detail"><b>Make:</b> {lottery.carMake}</li>
-                            <li class="detail"><b>Model:</b> {lottery.carModel}</li>
-                            <li class="detail"><b>Year:</b> {lottery.year}</li>
-                            <li class="detail"><b>Mileage:</b> {lottery.mileage}</li>
-                            <li class="detail"><b>Fuel Type:</b> {lottery.fueltype}</li>
-                            <li class="detail"><b>Body Type:</b> {lottery.bodytype}</li>
-                            <li class="detail"><b>Gear Box:</b> {lottery.gearbox}</li>
-                            <li class="detail"><b>Car Condition:</b> {lottery.condition}</li>
-                            
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="column-row" style="">
-                           <h5 style="text-align: center;"><b>Bid Info</b></h5>
-                           <li class="detail"><b>Car Estimated Value:</b> {lottery.estValue}</li>
-                           <li class="detail"><b>Start Bid:</b> {lottery.startingBid}</li>
-                           <li class="detail"><b>Max Bid:</b> {lottery.maxBid}</li>
-                           <li class="detail"><b>Bid Status:</b> {lottery.bidStatus}</li>
-                        </div>
-                        <div class="column-row" style="">
-                            <h5 style="text-align: center;"><b>Sale Info</b></h5>
-                            <li class="detail"><b>Created on:</b> {lottery.startDate}</li>
-                            <li class="detail"><b>Sale Status:</b> {lottery.saleStatus}</li>
-                            <li class="detail"><b>Sale Date:</b> {lottery.saleDate}</li>
-                        </div>
-                    </div>
-                   </div>
-                </div>
-                <div class="buttonGroup">
-                    <button type = "button" on:click={() => {lot_id = lottery.id; carMake = lottery.carMake; carModel = lottery.carModel; year = lottery.year; mileage = lottery.mileage; startDate = lottery.startDate; saleDate = lottery.saleDate; gearbox = lottery.gearbox; fueltype = lottery.fueltype; bodytype = lottery.bodytype; estValue = lottery.estValue; condition = lottery.condition; location = lottery.location; image = lottery.image; page = "editpage";}}>Edit</button>
-                    <button on:click={() => {lot_id = lottery.id; deleteALottery(lot_id, $tokenStore)}}>Delete</button>
-                </div>
-            </div> 
-            {/each}
-            {:else}
-                <div class="header">
-                    <h1>Edit your Auction:</h1>
-                </div>
-                <EditPage id = {lot_id} carMake = {carMake} carModel = {carModel} year = {year} mileage = {mileage} startDate = {startDate} saleDate = {saleDate} gearbox = {gearbox} fueltype ={fueltype} bodytype = {bodytype} estValue = {estValue} condition ={condition} image = {image} location = {location}/> 
-            {/if} 
-        {/await}
+{#if ([undefined, null, ''].includes($tokenStore))}
+    <div class="banner">
+        <h1>You need to login firstly!</h1>
     </div>
-</div>
+    {:else}
+    <div class="container">
+        <div class="lottery">
+            {#await profileData}
+                <p>Waiting</p>
+            {:then lotteries}
+
+                {#if page == "profile"}
+                    <div class="header">
+                        <h1 style="text-align: center; border-bottom: solid rgba(128, 128, 128, 0.585);
+            padding: 8px 1em">Profile</h1>
+                        <br>
+                        <h3>Welcome {$userStore.username}!</h3>
+                        <br>
+                        <div class="bidsTab">
+                            {#await bidsData}
+                                <p>Waiting</p>
+                                {:then bids}
+                                <div class="bidsTab-Header">
+                                    <h5>Your Bid(s):</h5>
+                                </div>
+                                {#each bids as bid, i}
+                                        <div class="bidsTab-info">
+                                            <a href="/inventory/lotteries/{bid.lotId}" style="color: white"><li class="bidItems">Auction ID: {bid.lotId}, Bid Amount: {bid.bidAmount}</li></a>
+                                        </div>
+                                {/each}
+                            {/await}
+                        </div>
+                        <br>
+                        <h3>Your Auction(s):</h3>
+                        <br>
+
+                    </div>
+            
+                            {#each lotteries as lottery, i}
+                                <div class="detail-page">
+                                    <div class="detail-page-title">
+                                        <div class="d-inline">
+                                            <h2><b>Auction: {i+1} </b></h2>
+                                            <h2>{lottery.year} {lottery.carMake} {lottery.carModel}</h2>
+                                            <h9> <b>Lot# </b>{lottery.id} | <b>Location:</b> {lottery.location} | <b>Sale Date:</b> {lottery.saleDate}</h9>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="column">
+                                            <img src={lottery.image} alt="" style="height: 400px; width: 500px; object-fit: cover;" class="rounded">
+                                        </div>
+                                        <div class="container">
+                                            <div class="column">
+                                                <div class="column-row" >
+                                                    <h5 style="text-align: center;"><b>Car Info</b></h5>
+                                                    <li class="detail"><b>Make:</b> {lottery.carMake}</li>
+                                                    <li class="detail"><b>Model:</b> {lottery.carModel}</li>
+                                                    <li class="detail"><b>Year:</b> {lottery.year}</li>
+                                                    <li class="detail"><b>Mileage:</b> {lottery.mileage}</li>
+                                                    <li class="detail"><b>Fuel Type:</b> {lottery.fueltype}</li>
+                                                    <li class="detail"><b>Body Type:</b> {lottery.bodytype}</li>
+                                                    <li class="detail"><b>Gear Box:</b> {lottery.gearbox}</li>
+                                                    <li class="detail"><b>Car Condition:</b> {lottery.condition}</li>
+
+                                                </div>
+                                            </div>
+                                            <div class="column">
+                                                <div class="column-row" style="">
+                                                    <h5 style="text-align: center;"><b>Bid Info</b></h5>
+                                                    <li class="detail"><b>Car Estimated Value:</b> {lottery.estValue}</li>
+                                                    <li class="detail"><b>Start Bid:</b> {lottery.startingBid}</li>
+                                                    <li class="detail"><b>Max Bid:</b> {lottery.maxBid}</li>
+                                                    <li class="detail"><b>Bid Status:</b> {lottery.bidStatus}</li>
+                                                </div>
+                                                <div class="column-row" style="">
+                                                    <h5 style="text-align: center;"><b>Sale Info</b></h5>
+                                                    <li class="detail"><b>Created on:</b> {lottery.startDate}</li>
+                                                    <li class="detail"><b>Sale Status:</b> {lottery.saleStatus}</li>
+                                                    <li class="detail"><b>Sale Date:</b> {lottery.saleDate}</li>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="buttonGroup">
+                                        <button type = "button" on:click={() => {lot_id = lottery.id; carMake = lottery.carMake; carModel = lottery.carModel; year = lottery.year; mileage = lottery.mileage; startDate = lottery.startDate; saleDate = lottery.saleDate; gearbox = lottery.gearbox; fueltype = lottery.fueltype; bodytype = lottery.bodytype; estValue = lottery.estValue; condition = lottery.condition; location = lottery.location; image = lottery.image; page = "editpage";}}>Edit</button>
+                                        <button on:click={() => {lot_id = lottery.id; deleteALottery(lot_id, $tokenStore)}}>Delete</button>
+                                    </div>
+                                </div>
+                            {/each}
+                       
+                {:else}
+                    <div class="header">
+                        <h1>Edit your Auction:</h1>
+                    </div>
+                    <EditPage id = {lot_id} carMake = {carMake} carModel = {carModel} year = {year} mileage = {mileage} startDate = {startDate} saleDate = {saleDate} gearbox = {gearbox} fueltype ={fueltype} bodytype = {bodytype} estValue = {estValue} condition ={condition} image = {image} location = {location}/>
+                {/if}
+            {/await}
+        </div>
+         
+    </div>
+    {/if}
+
+
 
 <style>
 .buttonGroup{
@@ -141,5 +170,24 @@ button:hover{
 button:active{
     position:relative;
 	top:1px;
+}
+.banner{
+    text-align: center;
+    margin: 5em auto;
+}
+.bidsTab{
+    width: 50%;
+    margin-right: 1em;
+    padding: 1em;
+    border: solid rgba(128, 128, 128, 0.585); border-radius: 5px;
+    background-color: #06283D;
+    color: white;
+}
+.bidItems{
+    margin: 5px;
+}
+.bidsTab-Header{
+    margin-bottom: 1em;
+    text-align: center;
 }
 </style>

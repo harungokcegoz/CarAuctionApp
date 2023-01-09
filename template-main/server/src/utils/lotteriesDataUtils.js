@@ -1,6 +1,9 @@
 export function findALottery(data, id) {
   return data.find((lot) => lot.id === id);
 }
+export function findLotIndex(data, id) {
+  return data.findIndex((lot) => lot.id === id);
+}
 export function findLotteryForUser(data, id) {
   let lotteries = [];
 
@@ -9,7 +12,6 @@ export function findLotteryForUser(data, id) {
       lotteries.push(element);
     }
   }
-  lotteries.push(data.find((lot) => lot.userId === id));
   return lotteries;
 }
 

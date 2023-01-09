@@ -3,47 +3,45 @@
   import Inventory from "./Inventory.svelte"; 
   import {userStore, tokenStore} from "../store.js"
   import { deleteALottery } from "../../utils/network-utils.js";
+  import AdminEditPage from "../AdminDashboard/AdminEditPage.svelte";
 
-    export let carMake, carModel, carYear, lotNum, location, imgSrc, bidStatus, maxBid;
-   
+   export let card;
 </script>
 
     <div class="lottery-container">
         <div class="lottery-card">
             <div class="lottery-card-info">
                 <div class="lottery-card-img">
-                    <img src="{imgSrc}" alt="">
+                    <img src="{card.image}" alt="">
                 </div>
                 <div class="lottery-card-description">
                     <div class="lottery-card-title">
-                        <h5><b>{carMake} {carModel} {carYear}</b></h5>
+                        <h5><b>{card.carMake} {card.carModel} {card.year}</b></h5>
                     </div>
                     <br>
                     <div class="lottery-card-lotNumber">
-                        <p><b>Lot#: </b> {lotNum}</p>
+                        <p><b>Lot#: </b> {card.id}</p>
                     </div>
                     <div class="lottery-card-bidStatus">
-                        <p><b>Bid Status: </b>{bidStatus}</p>
+                        <p><b>Bid Status: </b>{card.bidStatus}</p>
                     </div>
                     <div class="lottery-card-maxBid">
-                        <p><b>Bid: </b>${maxBid}</p>
+                        <p><b>Bid: </b>${card.maxBid}</p>
                     </div>
                     <div class="lottery-card-location">
-                        <p><b>Location: </b> {location}</p>
+                        <p><b>Location: </b> {card.location}</p>
                     </div>
                 </div>
             </div>
             <div class="but">
-                <Button name= "View Details" href ={`/inventory/lotteries/${lotNum}`}/>
+                <Button name= "View Details" href ={`/inventory/lotteries/${card.id}`}/>
                 {#if $userStore.role === "admin" }
-                <Button name= "Edit" href ={`/inventory/lotteries/admin/edit/${lotNum}`}/>
+                <Button name= "Edit" href ={`/inventory/lotteries/admin/edit/${card.id}`}/>
+
                 <!-- sorry for this :( -->
-                <button on:click={() => {deleteALottery(lotNum, $tokenStore)}}>Delete</button>
+                <button on:click={() => {deleteALottery(card.id, $tokenStore)}}>Delete</button>
                 {/if}
             </div>
-            <!-- <div class="but">
-                <a href="/inventory/lotteries/{i+1}" on:click={() => {page = LotteryDetails; params = i + 1 ;}}><Button name= "View Details" href = "#"/></a>
-            </div> -->
         </div>
     </div>
 

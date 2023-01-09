@@ -13,12 +13,14 @@ const router = express.Router();
 dotenv.config();
 
 router.get("/", verifyToken, verifyAdmin, function (req, res) {
-
-  res.json(usersData.filter((lot) => lot.username === req.user.username));
+  if (usersData == null){
+    return res.status(404).send("The user list is empty.")
+  }
+  return res.status(200).json(usersData.filter((lot) => lot.username === req.user.username));
 
 });
 
-router.post("/", userTaken, async function (req, res) {
+router.post("/", verifyToken, userTaken, async function (req, res) {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     req.body.id = findingLastId(usersData) + 1;
@@ -28,9 +30,9 @@ router.post("/", userTaken, async function (req, res) {
       password: hashedPassword,
     };
     usersData.push(user);
-    res.status(201).send(user);
+    return res.status(201).send(user);
   } catch {
-    res.status(500).send();
+    return res.status(500).send();
   }
 });
 
@@ -41,15 +43,15 @@ router.post("/tokens", findUser, async function (req, res) {
 
   try {
     if (await bcrypt.compare(req.body.password, user.password)) {
-      res.json({
+      return res.status(201).json({
         accessToken: accessToken,
         user: bodyNoPassword,
       });
     } else {
-      res.status(401).send("Oh, password is not correct! Try again!");
+      return res.status(401).send("Oh, password is not correct! Try again!");
     }
   } catch {
-    res.status(500).send();
+    return res.status(500).send("It could not be generated.");
   }
 });
 

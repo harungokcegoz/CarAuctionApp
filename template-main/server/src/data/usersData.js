@@ -6,13 +6,13 @@ export const ROLE = {
 export let usersData = [
   {
     userId: 0,
-    username: "harun",
+    username: "admin",
     password: "$2b$10$JXV7IuOO6csNKbgKumN.y.6Vg3n.4kERqyo6CLdvTG24RQUgvVz0G",
     role: ROLE.ADMIN,
   },
   {
     userId: 1,
-    username: "mert",
+    username: "user",
     password: "$2b$10$.tvRa9C8O9gNbn3zjTntpuEhxJURwKEQwQcChUv9qtEKRwRkyp3B2",
     role: ROLE.BASIC,
   },

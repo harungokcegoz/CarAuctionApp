@@ -1,15 +1,16 @@
 import express from "express";
-import { lotteriesData, setLotteries } from "../data/lotteriesData.js";
+import { lotteriesData } from "../data/lotteriesData.js";
 import {
   findALottery,
   findLotteryForUser,
-  findingLastId,
+  findingLastId, findLotIndex,
 } from "../utils/lotteriesDataUtils.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
 import {checkTheNumber} from "../middlewares/checkTheNumber.js";
+import {verifyAdmin} from "../middlewares/verifyAdmin.js";
 
 const router = express.Router();
-//add authenticateToken middleware for admin
+
 router.get("/", verifyToken, function (req, res) {
   let result = lotteriesData;
 
@@ -20,7 +21,7 @@ router.get("/", verifyToken, function (req, res) {
     result = result.filter((car) => car.location === req.query.location);
   }
 
-  return res.json(result);
+  return res.json(result).send(200);
 });
 
 // router.get("/", authenticateToken, function (req, res) {
@@ -43,10 +44,10 @@ router.get("/:id", verifyToken, checkTheNumber, function (req, res) {
   const resLot = findALottery(lotteriesData, Number.parseInt(req.params.id));
 
   if (resLot) {
-    return res.json(resLot);
+    return res.send(200).json(resLot);
   }
 
-  return res.status(404).json({ error: "The lottery with ID cant be found" });
+  return res.status(404).json({ error: "The lottery with the specified ID could not be found" });
 });
 
 router.get("/users/:id", verifyToken, checkTheNumber, function (req, res) {
@@ -61,20 +62,26 @@ router.get("/users/:id", verifyToken, checkTheNumber, function (req, res) {
 
   return res
     .status(404)
-    .json({ error: "The lottery with user ID cant be found" });
+    .json({ error: "The lottery with the user with specified ID could not be found" });
 });
+
 router.post("/", verifyToken, function (req, res) {
   try {
     req.body.id = findingLastId(lotteriesData) + 1;
     lotteriesData.push(req.body);
     res.status(201).json(req.body);
   } catch {
-    res.status(500).send("It cannot be added!");
+    res.status(500).send("It could not be added!");
   }
 });
-router.patch("/:id", function (req, res) {
+
+router.patch("/:id", verifyToken, checkTheNumber, function (req, res) {
   const { id } = req.params;
   let changes = req.body;
+
+  if(changes == null){
+    res.status(400).send("The body is empty.")
+  }
 
   const found = findALottery(lotteriesData, Number.parseInt(req.params.id));
 
@@ -82,23 +89,19 @@ router.patch("/:id", function (req, res) {
     Object.assign(found, changes);
     res.status(200).send(found);
   } else {
-    res.status(404).json({ message: "Lottery doesnt exist!" });
+    res.status(404).json({ message: "The specified lottery doesnt exist!" });
   }
 });
 
-router.delete("/:id", verifyToken, function (req, res) {
-  const resLot = findLotteryForUser(
-    lotteriesData,
-    Number.parseInt(req.params.id)
-  );
-  try {
-    if (resLot) {
-      setLotteries(lotteriesData.filter((lot) => lot.id !== req.params.id));
-      res.status(201).send("It is deleted!");
-    }
-  } catch (error) {
-    res.status(500).send();
+
+router.delete("/:id",checkTheNumber ,verifyToken, function (req, res) {
+  const id = Number.parseInt(req.params.id);
+  const i = findLotIndex(lotteriesData, id)
+  if (i === -1){
+    return res.status(404).send("The auction could not found");
   }
+  lotteriesData.splice(i, 1)
+  res.status(200).send("It is deleted")
 });
 
 export default router;

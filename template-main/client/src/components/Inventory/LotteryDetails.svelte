@@ -1,12 +1,11 @@
 <script>
-    import Button from "../Button.svelte";
     import {getLotteryById} from "../../utils/network-utils.js"
-    let id = location.pathname.replace('/inventory/lotteries/', '');
     import { tokenStore } from "../store.js";
-  import LotteryCards from "./LotteryCards.svelte";
     import BidSection from "./BidSection.svelte";
-
+    import {lotteriesData} from "../../../../server/src/data/lotteriesData";
+    let id = location.pathname.replace('/inventory/lotteries/', '');
     let arrayLotteries = getLotteryById(id, $tokenStore)
+
 
    
 </script>
@@ -49,12 +48,19 @@
                                     <li class="detail"><b>Bid Status:</b> {lottery.bidStatus}</li>
                                 </div>
                                 <div class="column-row" style="text-align: center;">
-                                   <BidSection/>
+                                    {#if lottery.bidStatus == "Scheduled"}
+                                        <p>Since this auction is scheduled, it is not available to bid now.</p>
+                                        {:else if lottery.bidStatus == "Closed"}
+                                            <p>Since this auction is already closed and the car has been sold, it is not available to bid anymore.</p>
+                                        {:else}
+                                        <BidSection/>
+                                        {/if}
+
                                 </div>
                                 <div class="column-row" style="">
                                     <h5 style="text-align: center;"><b>Sale Info</b></h5>
                                     <li class="detail"><b>Created on:</b> {lottery.startDate}</li>
-                                    <li class="detail"><b>Sale Status:</b> {lottery.sale_status}</li>
+                                    <li class="detail"><b>Sale Status:</b> {lottery.saleStatus}</li>
                                     <li class="detail"><b>Sale Date:</b> {lottery.saleDate}</li>
                                 </div>
                             </div>

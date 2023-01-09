@@ -74,7 +74,7 @@ export let lotteriesData = [
     fueltype: "Gasoline",
     bodytype: "Coupe",
     image:
-      "https://prod.pictures.autoscout24.net/listing-images/85c6bcb6-d6b1-4733-ae27-98793cba248d_5a71e091-5803-4e8e-9d49-b37056530b8f.jpg/720x540.webp",
+      "https://media.autoexpress.co.uk/image/private/s--X-WVjvBW--/f_auto,t_content-image-full-desktop@1/v1594991800/autoexpress/2020/07/Ferrari%20SF90-8.jpg",
     estValue: 550.0,
     bidStatus: "Closed",
     saleStatus: "Sold",
@@ -184,7 +184,7 @@ export let lotteriesData = [
     fueltype: "Gasoline",
     bodytype: "Coupe",
     image:
-      "https://prod.pictures.autoscout24.net/listing-images/c5c2a0f2-c1a2-4a24-83fb-ce7dd1b7b83a_ee6a95ce-243b-489a-b52d-1fcb352d3524.jpg/720x540.webp",
+      "https://hips.hearstapps.com/hmg-prod/images/2021-lamborghini-aventador-mmp-1-1601499002.jpg",
     estValue: 1250000,
     bidStatus: "Open",
     saleStatus: "Not Sold",
@@ -309,14 +309,14 @@ export let lotteriesData = [
   {
     id: 15,
     carMake: "Mercedes Benz",
-    carModel: 300,
+    carModel: "300",
     year: 1956,
     mileage: 51953,
     gearbox: "Manual",
     fueltype: "Gasoline",
     bodytype: "Coupe",
     image:
-      "https://prod.pictures.autoscout24.net/listing-images/07377389-3738-40fc-b17d-07b280949321_d4c0374b-ac75-42d6-aa61-dcdce3e04bd4.jpg/720x540.webp",
+      "https://www.classicdriver.com/sites/default/files/cars_images/feed_766618/265be00cf72838b6ce04c4ca5bc9483f5f6b9b52.jpg",
     estValue: 1600000,
     bidStatus: "Open",
     saleStatus: "Not Sold",
@@ -382,7 +382,7 @@ export let lotteriesData = [
     fueltype: "Gasoline",
     bodytype: "Coupe",
     image:
-      "https://prod.pictures.autoscout24.net/listing-images/416236d8-be97-4fc3-af2c-82ad486912ff_c33890ea-72f8-4707-bd2a-b5d3616c6300.jpg/720x540.webp",
+      "https://images.classic.com/vehicles/452c413f61022137084bb90f6d5fbf93da8d55d8.jpg?auto=format",
     estValue: 68000,
     bidStatus: "Open",
     saleStatus: "Not Sold",
@@ -439,6 +439,4 @@ export let lotteriesData = [
     userId: 1,
   },
 ];
-export function setLotteries(value) {
-  lotteriesData = value;
-}
+

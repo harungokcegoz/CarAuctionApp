@@ -1,42 +1,19 @@
 
 <script>
-  import { getLotteryById } from "../../utils/network-utils.js";
+    import {editAuction, getLotteryById} from "../../utils/network-utils.js";
     import {tokenStore } from "../store.js"
-
     let page = "edit";
     let id = location.pathname.replace('/inventory/lotteries/admin/edit/', '');
     let carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, locationn, image;
-    
+
    
     const lot =  getLotteryById(id, $tokenStore);
-    console.log(lot)
-    async function submit(){
-     
+
+     function submit(){
         const data = { carMake, carModel, year, mileage, startDate, saleDate, gearbox, fueltype, bodytype, estValue, condition, locationn, image }
-        try {
-            const res = await fetch("http://localhost:3000/lotteries/" +id, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: "Bearer " + $tokenStore,
-            },
-            method : "PATCH",
-                body: JSON.stringify(data)
-        })
-        if (res.status >= 200 && res.status <= 299) {
-            alert("The car is edited successfully!")
-           page = "profile";
-        } else{
-            alert("Something went wrong")
-        }
-        } catch (error) {
-            console.log(error)
-        }  
+        editAuction(data, id, $tokenStore)
     }
-    
-    function getId(){
-         
-    }
+
     </script>
     
     {#if ([undefined, null, ''].includes($tokenStore))}
@@ -45,8 +22,10 @@
         </div>
     {:else}
     {#if page == "edit"}
-    <body>  
-       
+    <body>
+    {#await lot}
+        <p>Waiting...</p>
+        {:then auction}
         <div class="container">
             <header>Edit the Lottery</header>
         
@@ -59,37 +38,37 @@
                         <div class="fields">
                             <div class="input-field">
                                 <label>Car Make</label>
-                                <input type="text" placeholder="Enter Car Make" required bind:value={carMake}>
+                                <input type="text" placeholder={auction.carMake} required bind:value={carMake}>
                             </div>
         
                             <div class="input-field">
                                 <label>Car Model</label>
-                                <input type="text" placeholder="Enter Car Model" required bind:value={carModel}>
+                                <input type="text" placeholder={auction.carModel} required bind:value={carModel}>
                             </div>
         
                             <div class="input-field">
                                 <label>Year</label>
-                                <input type="number" min="1800" max="2023" placeholder="Enter build year" required bind:value={year}>
+                                <input type="number" min="1800" max="2023" placeholder={auction.year} required bind:value={year}>
                             </div>
         
                             <div class="input-field">
                                 <label>Mileage</label>
-                                <input type="number"  min="0" placeholder="Enter mileage of the car" required bind:value={mileage}>
+                                <input type="number"  min="0" placeholder={auction.mileage} required bind:value={mileage}>
                             </div>
         
                             <div class="input-field">
                                 <label>Auction Start Date</label>
-                                <input type="text" placeholder="Enter your start date" required bind:value={startDate}>
+                                <input type="text" placeholder={auction.startDate} required bind:value={startDate}>
                             </div>
         
                             <div class="input-field">
                                 <label>Sale Date</label>
-                                <input type="text" placeholder="Enter sale date" required bind:value={saleDate}>
+                                <input type="text" placeholder={auction.saleDate} required bind:value={saleDate}>
                             </div>
                             <div class="input-field">
                                 <label>Gearbox</label>
                                 <select required bind:value={gearbox}>
-                                    <option disabled selected>Select gearbox type</option>
+                                    <option disabled selected>{auction.gearbox}</option>
                                     <option>Automatic</option>
                                     <option>Manual</option>
                                     <option>Semi-automatic</option>
@@ -99,7 +78,7 @@
                             <div class="input-field">
                                 <label>Fueltype</label>
                                 <select required bind:value={fueltype}>
-                                    <option disabled selected>Select fuel type</option>
+                                    <option disabled selected>{auction.fueltype}</option>
                                     <option>Gasoline</option>
                                     <option>Electric</option>
                                     <option>Diesel</option>
@@ -110,7 +89,7 @@
                             <div class="input-field">
                                 <label>Bodytype</label>
                                 <select required bind:value={bodytype}>
-                                    <option disabled selected>Select bodytype</option>
+                                    <option disabled selected>{auction.bodytype}</option>
                                     <option>Sedan</option>
                                     <option>Cabrio</option>
                                     <option>Hatchback</option>
@@ -123,13 +102,13 @@
         
                             <div class="input-field">
                                 <label>Estimated Value</label>
-                                <input type="number"  min="0" placeholder="Enter estimated value" required bind:value={estValue}>
+                                <input type="number"  min="0" placeholder={auction.estValue} required bind:value={estValue}>
                             </div>
         
                             <div class="input-field">
                                 <label>Condition</label>
                                 <select required bind:value={condition}>
-                                    <option disabled selected>Select condition</option>
+                                    <option disabled selected>{auction.condition}</option>
                                     <option>Brand New</option>
                                     <option>Used</option>
                                     <option>Oldtimer</option>
@@ -138,7 +117,7 @@
         
                             <div class="input-field"> 
                                 <label>Location</label>
-                                <input type="text" placeholder="Enter locationn" required bind:value={locationn}>
+                                <input type="text" placeholder={auction.location} required bind:value={locationn}>
                             </div>
         
                             <div class="input-field" style="width: 100%;">
@@ -155,6 +134,7 @@
                 </div>
             </form>
         </div>
+    {/await}
     </body>
     {/if}
         
@@ -214,7 +194,7 @@
     }
     .container form .title{
         display: block;
-        margin-bottom: 8px;
+        /*margin-bottom: 8px;*/
         font-size: 16px;
         font-weight: 500;
         margin: 6px 0;
@@ -282,15 +262,7 @@
     .buttons{
         text-align: center;
     }
-    button{
-      
-    }
-    button:hover{
-     
-    }
-    button:active{
-        
-    }
+
     .banner{
         text-align: center;
         margin: 5em auto;

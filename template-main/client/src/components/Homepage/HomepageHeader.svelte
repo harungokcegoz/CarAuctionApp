@@ -4,7 +4,8 @@
     import {tokenStore} from "../store.js"
    
    function signOut(){
-    tokenStore.set("")
+    tokenStore.set("");
+    location.href = "/";
    }
 </script>
 <header>
