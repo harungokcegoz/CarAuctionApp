@@ -44,7 +44,7 @@ router.get("/:id", verifyToken, checkTheNumber, function (req, res) {
   const resLot = findALottery(lotteriesData, Number.parseInt(req.params.id));
 
   if (resLot) {
-    return res.send(200).json(resLot);
+    return res.send(resLot);
   }
 
   return res.status(404).json({ error: "The lottery with the specified ID could not be found" });
