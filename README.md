@@ -2,6 +2,7 @@
 
 This project is a dynamic and user-friendly online auction app developed using the Svelte framework on the frontend and node.js on the backend. It allows users to register or log in and create new auctions or edit existing ones. Users can also place bids on open auctions, making it an interactive and engaging platform for buying and selling items. The app is still in progress, so some features may be missing, but it will be a comprehensive and fully functional platform upon completion.
 
+Code quality is not enough good but it was my first JS Framework experience. Sorry for the mess.
 # Homepage:
 
 ![127 0 0 1_5173_inventory_lotteries_2 (4)](https://user-images.githubusercontent.com/94520965/220877266-ceaf81cb-7667-44ff-864b-796a0922ce1a.png)
